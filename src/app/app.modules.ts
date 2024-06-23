@@ -11,11 +11,18 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptorService } from './auth/jwt-interceptor.service';
 import { ErrorInterceptorService } from './auth/error-interceptor.service';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import {MatMenuModule} from '@angular/material/menu';
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent
+    RegisterComponent,
+    NavBarComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +30,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     RouterModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatIconModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatMenuModule,
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptorService,multi:true},
