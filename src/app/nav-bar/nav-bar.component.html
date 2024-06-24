@@ -1,23 +1,24 @@
 <div *ngIf="!isLoggedIn">
-    <mat-toolbar class="nav-bar">
-      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span>My App</span>
-      <span class="example-spacer"></span>
-      <a href="/login">
-        <button mat-icon-button class="accountButton">
+  <mat-toolbar class="nav-bar">
+    <button mat-icon-button class="example-icon" aria-label="Menu" role="button">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="app-name">My App</span>
+    <span class="example-spacer"></span>
+    <a href="/login">
+      <button mat-icon-button class="accountButton" aria-label="Login" role="button">
         <mat-icon>account_circle</mat-icon>
-        </button>
-      </a>
-    </mat-toolbar>
+      </button>
+    </a>
+  </mat-toolbar>
 </div>
+
 <div *ngIf="isLoggedIn">
-    <mat-toolbar class="nav-bar">
-      <span>My App</span>
-      <span class="example-spacer"></span>
-        <button mat-icon-button  (click)="logout()" title="Log Out"> 
-            <mat-icon>exit_to_app</mat-icon>
-        </button>
-    </mat-toolbar>
+  <mat-toolbar class="nav-bar">
+    <span class="app-name">My App</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button (click)="logout()" title="Log Out" aria-label="Log Out" role="button">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
+  </mat-toolbar>
 </div>

@@ -1,15 +1,29 @@
+.nav-bar {
+  background-color: #4567b7; 
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .example-spacer {
-    flex: 1 1 auto;
-  }
-  .nav-bar{
-    background-color: aquamarine;
-  }
-  .logout-text{
-    margin-right: 50px;
-  }
-  .accountButton{
-    color: black;
-  }
-  .accountButton:hover{
-    color: white;
-  }
+  flex-grow: 1;
+}
+
+.accountButton {
+  color: #fff;
+  transition: color 0.2s ease-in-out;
+}
+
+.accountButton:hover {
+  color: #ccc; 
+}
+
+.logout-text {
+  margin-right: 50px;
+}
+
+.app-name {
+  font-weight: bold;
+  font-size: 1.2rem;
+}

@@ -1,7 +1,16 @@
-<div class="menu">
-    <div class="login-container">
+<div class="menu grid min-h-screen grid-cols-1 lg-grid-cols-2">
+  <div class="relative hidden lg-block background-image">
+    <img
+      src="/assets/img/store.jpg"
+      alt="Login background"
+      class="h-full w-full object-cover"
+    />
+    <div class="absolute inset-0 bg-gradient-to-r"></div>
+  </div>
+  <div class="flex items-center justify-center p-4 md-p-8">
+    <div class="login-container w-full max-w-md space-y-6">
       <form [formGroup]="loginForm" (ngSubmit)="login()">
-        <h1>Login</h1>
+        <h1>Welcome back</h1>
         <label for="username">Username</label>
         <input formControlName="username" placeholder="Username" required />
         <label for="password">Password</label>
@@ -11,3 +20,4 @@
       </form>
     </div>
   </div>
+</div>
