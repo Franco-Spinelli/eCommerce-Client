@@ -57,21 +57,21 @@
     margin-top: 8px;
   }
   
-  /* Media query para pantallas más pequeñas */
+  
   @media (max-width: 1024px) {
     .product-item {
-      width: calc(33.33% - 20px); /* 33.33% del contenedor menos el espacio entre elementos */
+      width: calc(33.33% - 20px); 
     }
   }
   
-  /* Media query para pantallas aún más pequeñas */
+ 
   @media (max-width: 400px) {
     .product-item {
-      width: calc(50% - 20px); /* 50% del contenedor menos el espacio entre elementos */
+      width: calc(50% - 20px); 
     }
   }
   
-  /* Media query para pantallas muy pequeñas */
+  
  
   
   
