@@ -18,13 +18,15 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { LoginComponent } from './login/login.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { ProductListComponent } from './product-list/product-list.component';
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     NavBarComponent,
     LoginComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
