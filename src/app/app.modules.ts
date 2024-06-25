@@ -42,6 +42,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatMenuModule,
     BrowserAnimationsModule
   ],
+  exports: [],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptorService,multi:true},
     {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptorService,multi:true}],

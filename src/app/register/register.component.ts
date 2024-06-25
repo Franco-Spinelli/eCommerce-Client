@@ -13,7 +13,7 @@ export class RegisterComponent {
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router){
     this.registerForm = this.formBuilder.group({
-      username:['',[Validators.required]],
+      username:['',[Validators.required, Validators.email]],
       password: ['', [Validators.required,Validators.minLength(6)]],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]]
