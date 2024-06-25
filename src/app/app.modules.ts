@@ -19,6 +19,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { LoginComponent } from './login/login.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ProductListComponent } from './product-list/product-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +40,7 @@ import { ProductListComponent } from './product-list/product-list.component';
     MatButtonModule,
     MatToolbarModule,
     MatMenuModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptorService,multi:true},
