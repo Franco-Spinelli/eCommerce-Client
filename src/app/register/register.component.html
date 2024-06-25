@@ -15,10 +15,16 @@
           <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" formControlName="username" [ngClass]="{'is-invalid': registerForm.get('username')?.touched && registerForm.get('username')?.invalid}" required />
+            <div *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)">
+              <span class="error"> Make sure to enter a valid email address.</span>
+            </div>
           </div>
           <div class="form-group">
             <label for="password">Password</label>
             <input type="password" class="form-control" formControlName="password" [ngClass]="{'is-invalid': registerForm.get('password')?.touched && registerForm.get('password')?.invalid}" required />
+            <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.dirty || registerForm.get('password')?.touched)">
+              <span class="error"> Password must be at least 6 characters long</span>
+            </div>
           </div>
           <button type="submit" class="btn btn-primary">Register</button>
           <p class="text-muted">Already have an account? <a href="/login" class="text-primary">Login here</a>.</p>

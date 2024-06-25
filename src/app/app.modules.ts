@@ -17,12 +17,17 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import {MatMenuModule} from '@angular/material/menu';
 import { LoginComponent } from './login/login.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     NavBarComponent,
-    LoginComponent
+    LoginComponent,
+    LandingPageComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +40,9 @@ import { LoginComponent } from './login/login.component';
     MatButtonModule,
     MatToolbarModule,
     MatMenuModule,
+    BrowserAnimationsModule
   ],
+  exports: [],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptorService,multi:true},
     {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptorService,multi:true}],

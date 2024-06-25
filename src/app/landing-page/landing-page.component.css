@@ -1,0 +1,61 @@
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .hero {
+    background-image: url('/assets/img/landing-page.jpg');
+    background-size: cover;
+    background-position: center; 
+    height: 28rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .hero-content {
+    text-align: center;
+  }
+  
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 40px;
+  }
+  
+  .feature {
+    margin: 20px;
+    text-align: center;
+  }
+  
+  .feature mat-icon {
+    font-size: 48px;
+    color: #3498db;
+    margin-bottom: 10px;
+  }
+  
+  .feature h2 {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .call-to-action {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .call-to-action button {
+    margin-top: 20px;
+  }
+
+
+
+  
