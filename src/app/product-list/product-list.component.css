@@ -145,7 +145,7 @@
    }
  }
  
- @media (max-width: 630px) {
+ @media (max-width: 660px) {
   .product-list {
     grid-template-columns: repeat(2, 1fr);
    }
@@ -153,4 +153,17 @@
     margin-bottom: 200px;
     max-height: 50vh;
    }
+ }
+ @media (max-width: 450px) {
+  .product-list {
+    grid-template-columns: repeat(1, 1fr);
+   }
+   .modal-content{
+    margin-bottom: 200px;
+    max-height: 50vh;
+   }
+   .product-item {
+    max-height: 10%;
+    
+  }
  }
