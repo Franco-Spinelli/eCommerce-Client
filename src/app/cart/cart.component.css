@@ -28,14 +28,20 @@
   }
   
   .close-modal {
-    background-color: #333;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
+    background-color: transparent; 
+    border: none; 
+    padding: 0; 
+    color: #ccc; 
     cursor: pointer;
   }
-  
+  .close-modal .mat-icon {
+    font-size: 24px; 
+    color: inherit; 
+  }
   .close-modal:hover {
-    background-color: #444;
+    color: #000; 
+  }
+  
+  .close-modal:hover .mat-icon {
+    color: #000; 
   }

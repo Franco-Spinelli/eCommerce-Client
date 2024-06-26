@@ -34,6 +34,9 @@
   height: 200px;
   border-radius: 12px 12px 0 0;
   overflow: hidden;
+  background-size: 40%; 
+  background-position: center;
+  background-repeat: no-repeat; 
 }
 
 .product-image img {
@@ -128,16 +131,25 @@
   color: #4567b7;   
 }
 .close-modal {
-  background-color: #333;
-  color: #fff;
-  border: none;
   padding: 10px 20px;
   font-size: 16px;
+  background-color: transparent; 
+  border: none; 
+  padding: 0; 
+  color: #ccc; 
   cursor: pointer;
 }
 
+.close-modal .mat-icon {
+  font-size: 24px; 
+  color: inherit; 
+}
 .close-modal:hover {
-  background-color: #444;
+  color: #000; 
+}
+
+.close-modal:hover .mat-icon {
+  color: #000; 
 }
 @media (max-width: 1024px) {
   .product-item {

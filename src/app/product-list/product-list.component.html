@@ -17,6 +17,9 @@
  
   <div class="modal" [class.active]="selectedProduct">
     <div class="modal-content">
+      <button  class="close-modal" (click)="hideProductDetails()">
+        <mat-icon class="mat-icon-button">close</mat-icon>
+      </button>
       <img [src]="selectedProduct?.image" alt="Product image: selectedProduct.image" class="product-image-full">
       <h2>{{ selectedProduct?.title }}</h2>
       <p>{{ selectedProduct?.description }}</p>
@@ -28,7 +31,6 @@
       <p [ngStyle]="{'color': getStockInfo(selectedProduct?.stock).color}">
         Stock: {{ getStockInfo(selectedProduct?.stock).text }}
       </p>
-      <button class="close-modal" (click)="hideProductDetails()">Close</button>
     </div>
   </div>
 </div>
