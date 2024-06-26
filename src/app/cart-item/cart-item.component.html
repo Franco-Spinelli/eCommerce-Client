@@ -1,0 +1,7 @@
+<div class="cart-item">
+    <h3>{{ cartItem.title }}</h3>
+    <p>Quantity: {{ cartItem.quantity }}</p>
+    <p>Price: {{ cartItem.price | currency }}</p>
+    <p>Total: {{ cartItem.totalPriceItem | currency }}</p>
+    <button (click)="removeItem()">Remove</button>
+  </div>

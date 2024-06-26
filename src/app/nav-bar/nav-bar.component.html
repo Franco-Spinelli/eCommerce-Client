@@ -3,7 +3,7 @@
     <button mat-icon-button class="example-icon" aria-label="Menu" role="button">
       <mat-icon>menu</mat-icon>
     </button>
-    <span class="app-name">My App</span>
+    <a class="app-name" href="/">My App</a>
     <span class="example-spacer"></span>
     <a href="/login">
       <button mat-icon-button class="accountButton" aria-label="Login" role="button">
@@ -15,10 +15,20 @@
 
 <div *ngIf="isLoggedIn">
   <mat-toolbar class="nav-bar">
-    <span class="app-name">My App</span>
+    <a class="app-name" href="/">My App</a>
     <span class="example-spacer"></span>
-    <button mat-icon-button (click)="logout()" title="Log Out" aria-label="Log Out" role="button">
-      <mat-icon>exit_to_app</mat-icon>
+    <button mat-icon-button (click)="openCartModal()">
+      <mat-icon>shopping_cart</mat-icon>
     </button>
+    <app-cart #cartModal></app-cart>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="logout()" title="Log Out" aria-label="Log Out">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Log Out</span>
+      </button>
+    </mat-menu>
   </mat-toolbar>
 </div>
