@@ -14,4 +14,8 @@ export class ProductService{
   getAllProducts(): Observable<Product[]>{
     return this.http.get<Product[]>(environment.urlApi + "/products/get-products");
   }
+
+  getCategories(): Observable<any> {
+    return this.http.get<any>(environment.urlApi + "/products/get-categories");
+  }
 }

@@ -1,15 +1,9 @@
 <div *ngIf="!isLoggedIn">
   <mat-toolbar class="nav-bar">
-    <button mat-icon-button class="example-icon" aria-label="Menu" role="button">
-      <mat-icon>menu</mat-icon>
-    </button>
     <a class="app-name" href="/">My App</a>
     <span class="example-spacer"></span>
-    <a href="/login">
-      <button mat-icon-button class="accountButton" aria-label="Login" role="button">
-        <mat-icon>account_circle</mat-icon>
-      </button>
-    </a>
+    <button mat-raised-button class="accountButton" color="primary" [routerLink]="['/register']">Sign Up Now</button>
+    <button mat-raised-button class="accountButton" color="primary" [routerLink]="['/login']">Log In</button>
   </mat-toolbar>
 </div>
 
