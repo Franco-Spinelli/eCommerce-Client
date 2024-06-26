@@ -58,9 +58,28 @@
 }
 
 .product-price {
-  font-size: 16px;
-  color: #333;
+  font-size: 18px;
+  font-weight: bold;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.price-label {
+  color: #666;
+  margin-right: 5px;
+}
+
+.price-amount {
+  font-size: 22px;
+  color: #4567b7;  
+  font-weight: bold;
+}
+
+.product-price i {
+  font-size: 18px;
+  margin-left: 5px;
+  color: #4567b7;  
 }
 
 .product-description {
@@ -97,7 +116,17 @@
   z-index: 1001
 
 }
+.modal-content .price-amount {
+  font-size: 24px;
+  color: #4567b7;  
+  font-weight: bold;
+}
 
+.modal-content i {
+  font-size: 20px;
+  margin-left: 5px;
+  color: #4567b7;   
+}
 .close-modal {
   background-color: #333;
   color: #fff;

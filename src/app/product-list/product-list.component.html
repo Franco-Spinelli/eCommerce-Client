@@ -4,7 +4,11 @@
       <div class="product-image" [style.backgroundImage]="'url(' + product.image + ')'" ></div>
       <div class="product-details">
         <h3 class="product-title">{{ product.title }}</h3>
-        <p class="product-price">$ {{ product.price }}</p>
+        <p class="product-price">
+          <span class="price-label">Price:</span>
+          <span class="price-amount">${{ product.price }}</span>
+          <i class="fas fa-dollar-sign"></i>
+        </p>
         <p class="product-description">{{ product.description | slice:0:100 }} {{ product.description.length > 100? '...' : '' }}</p>
       </div>
     </div>
@@ -16,7 +20,11 @@
       <img [src]="selectedProduct?.image" alt="Product image: selectedProduct.image" class="product-image-full">
       <h2>{{ selectedProduct?.title }}</h2>
       <p>{{ selectedProduct?.description }}</p>
-      <p>Price: $ {{ selectedProduct?.price }}</p>
+      <p>
+        Price: 
+        <span class="price-amount">${{ selectedProduct?.price }}</span>
+        <i class="fas fa-dollar-sign"></i>
+      </p>
       <p [ngStyle]="{'color': getStockInfo(selectedProduct?.stock).color}">
         Stock: {{ getStockInfo(selectedProduct?.stock).text }}
       </p>
