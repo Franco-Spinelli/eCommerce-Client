@@ -34,6 +34,9 @@
   height: 200px;
   border-radius: 12px 12px 0 0;
   overflow: hidden;
+  background-size: 40%; 
+  background-position: center;
+  background-repeat: no-repeat; 
 }
 
 .product-image img {
@@ -58,9 +61,28 @@
 }
 
 .product-price {
-  font-size: 16px;
-  color: #333;
+  font-size: 18px;
+  font-weight: bold;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.price-label {
+  color: #666;
+  margin-right: 5px;
+}
+
+.price-amount {
+  font-size: 22px;
+  color: #4567b7;  
+  font-weight: bold;
+}
+
+.product-price i {
+  font-size: 18px;
+  margin-left: 5px;
+  color: #4567b7;  
 }
 
 .product-description {
@@ -97,26 +119,76 @@
   z-index: 1001
 
 }
+.modal-content .price-amount {
+  font-size: 24px;
+  color: #4567b7;  
+  font-weight: bold;
+}
 
+.modal-content i {
+  font-size: 20px;
+  margin-left: 5px;
+  color: #4567b7;   
+}
 .close-modal {
-  background-color: #333;
-  color: #fff;
-  border: none;
   padding: 10px 20px;
   font-size: 16px;
+  background-color: transparent; 
+  border: none; 
+  padding: 0; 
+  color: #ccc; 
   cursor: pointer;
 }
 
-.close-modal:hover {
-  background-color: #444;
+.close-modal .mat-icon {
+  font-size: 24px; 
+  color: inherit; 
 }
+.close-modal:hover {
+  color: #000; 
+}
+
+.close-modal:hover .mat-icon {
+  color: #000; 
+}
+
+.search-form {
+  margin-bottom: 20px;
+}
+
+.search-form input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  width: 100%;
+  
+}
+input[type="text"] {
+  border: 2px solid #ccc; 
+  padding: 5px;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+  outline: none; 
+}
+
+.no-products {
+  margin-top: 20px;
+  text-align: center;
+  color: #868686; 
+  font-weight: bold;
+}
+
 @media (max-width: 1024px) {
   .product-item {
      flex: 0 0 calc(33.33% - 20px);
    }
  }
  
- @media (max-width: 630px) {
+ @media (max-width: 660px) {
   .product-list {
     grid-template-columns: repeat(2, 1fr);
    }
@@ -124,4 +196,17 @@
     margin-bottom: 200px;
     max-height: 50vh;
    }
+ }
+ @media (max-width: 450px) {
+  .product-list {
+    grid-template-columns: repeat(1, 1fr);
+   }
+   .modal-content{
+    margin-bottom: 200px;
+    max-height: 50vh;
+   }
+   .product-item {
+    max-height: 10%;
+    
+  }
  }

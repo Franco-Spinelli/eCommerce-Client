@@ -1,0 +1,19 @@
+<div class="cart-item">
+    <div class="cart-item-image" [style.backgroundImage]="'url(' + cartItem.img + ')'" ></div>
+    <h3>{{ cartItem.title }}</h3>
+    <div class="cart-item-details">
+        <div class="quantity">
+            <label>Quantity:</label>
+            <span>{{ cartItem.quantity }}</span>
+        </div>
+        <div class="price">
+            <label>Price:</label>
+            <span>{{ cartItem.price | currency }}</span>
+        </div>
+        <div class="total">
+            <label>Total:</label>
+            <span>{{ cartItem.totalPriceItem | currency }}</span>
+        </div>
+    </div>
+    <button (click)="removeItem()">Remove</button>
+</div>

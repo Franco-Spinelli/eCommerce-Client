@@ -27,6 +27,7 @@ export interface Rating {
   export interface CartItem {
     quantity: number;
     title: string;
+    img:string;
     price: number;
     totalPriceItem: number;
   }

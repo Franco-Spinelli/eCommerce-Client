@@ -10,9 +10,11 @@
   flex-grow: 1;
 }
 
+
 .accountButton {
   color: #fff;
   transition: color 0.2s ease-in-out;
+  margin-left: 1rem;
 }
 
 .accountButton:hover {
@@ -24,6 +26,15 @@
 }
 
 .app-name {
+  text-decoration: none;
+  color: #fff;
   font-weight: bold;
   font-size: 1.2rem;
+}
+.icon-nav-bar{
+  color: white;
+}
+
+.button-nav-bar:hover .icon-nav-bar {
+  color: #bbbbbb;
 }
