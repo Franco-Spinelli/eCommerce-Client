@@ -11,12 +11,12 @@
   <mat-toolbar class="nav-bar">
     <a class="app-name" href="/">My App</a>
     <span class="example-spacer"></span>
-    <button mat-icon-button (click)="openCartModal()">
-      <mat-icon>shopping_cart</mat-icon>
+    <button mat-icon-button (click)="openCartModal()" class="button-nav-bar">
+      <mat-icon class="icon-nav-bar">shopping_cart</mat-icon>
     </button>
     <app-cart #cartModal></app-cart>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-      <mat-icon>more_vert</mat-icon>
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="button-nav-bar">
+      <mat-icon class="icon-nav-bar">more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="logout()" title="Log Out" aria-label="Log Out">

@@ -10,13 +10,20 @@ import { Product } from '../models';
 export class ProductListComponent implements OnInit {
   constructor(private productService: ProductService){}
     products: Product[];
+    filteredProducts: Product[] = [];
+    searchTerm: string = '';
     selectedProduct: any;
     ngOnInit(): void {
-      this.productService.getAllProducts().subscribe((data)=>{
-        this.products = data;
-        console.log(data);
-      })
+      this.loadProducts();
     }
+  
+    loadProducts(): void {
+      this.productService.getAllProducts().subscribe((data) => {
+        this.products = data;
+        this.filteredProducts = data; 
+      });
+    }
+  
     
   showProductDetails(product: any) {
     this.selectedProduct = product;
@@ -37,5 +44,13 @@ export class ProductListComponent implements OnInit {
     }
     return { text: 'High', color: 'green' };
   }
-  
+  searchProducts(): void {
+    if (this.searchTerm) {
+      this.filteredProducts = this.products.filter(product =>
+        product.title.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    } else {
+      this.filteredProducts = this.products;
+    }
+  }
   }

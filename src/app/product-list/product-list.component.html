@@ -1,6 +1,9 @@
 <div class="container">
-  <div class="product-list">
-    <div *ngFor="let product of products" class="product-item" (click)="showProductDetails(product)">
+  <form class="search-form">
+    <input type="text" name="search" [(ngModel)]="searchTerm" (ngModelChange)="searchProducts()" placeholder="Search products">
+  </form>
+  <div class="product-list" *ngIf="filteredProducts.length > 0; else noProducts">
+    <div *ngFor="let product of filteredProducts" class="product-item" (click)="showProductDetails(product)">
       <div class="product-image" [style.backgroundImage]="'url(' + product.image + ')'" ></div>
       <div class="product-details">
         <h3 class="product-title">{{ product.title }}</h3>
@@ -13,6 +16,12 @@
       </div>
     </div>
   </div>
+
+  <ng-template #noProducts>
+    <div class="no-products">
+      No products found.
+    </div>
+  </ng-template>
 
  
   <div class="modal" [class.active]="selectedProduct">
