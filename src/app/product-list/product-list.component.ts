@@ -13,6 +13,8 @@ export class ProductListComponent implements OnInit {
     filteredProducts: Product[] = [];
     searchTerm: string = '';
     selectedProduct: any;
+    currentPage = 1;
+    productsPerPage = 12;
     ngOnInit(): void {
       this.loadProducts();
     }
@@ -52,5 +54,21 @@ export class ProductListComponent implements OnInit {
     } else {
       this.filteredProducts = this.products;
     }
+  }
+  get paginatedProducts() {
+    const startIndex = (this.currentPage - 1) * this.productsPerPage;
+    const endIndex = startIndex + this.productsPerPage;
+    return this.filteredProducts.slice(startIndex, endIndex);
+  }
+  previousPage() {
+    this.currentPage--;
+  }
+
+  nextPage() {
+    this.currentPage++;
+  }
+
+  get totalPages() {
+    return Math.ceil(this.filteredProducts.length / this.productsPerPage);
   }
   }
