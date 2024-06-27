@@ -1,21 +1,23 @@
 <div class="container">
   <form class="search-form">
     <input type="text" name="search" [(ngModel)]="searchTerm" (ngModelChange)="searchProducts()" placeholder="Search products">
-   
-    <mat-slider  min="0" max="5" step="0.5" showTickMarks discrete [displayWith]="formatLabel" (input)="advancedSearch()">
-      <input matSliderThumb name="rating" [(ngModel)]="selectedRating">
-    </mat-slider>
 
-    <mat-form-field>
-      <mat-label>Choose an option</mat-label>
-      <mat-select name="category" [(ngModel)]="selectedCategory" (ngModelChange)="advancedSearch()">
-        <mat-option value="">All categories</mat-option>
-        <mat-option value="{{category.name}}" *ngFor="let category of categories">{{ category.name }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    
-    <input type="number" name="minPrice" [(ngModel)]="minPrice" (ngModelChange)="advancedSearch()" placeholder="Min price">
-    <input type="number" name="maxPrice" [(ngModel)]="maxPrice" (ngModelChange)="advancedSearch()" placeholder="Max price">
+    <div class="filter-container">
+      <mat-slider class="rating-slider" min="0" max="5" step="0.5" showTickMarks discrete [displayWith]="formatLabel" (input)="advancedSearch()">
+        <input matSliderThumb name="rating" [(ngModel)]="selectedRating">
+      </mat-slider>
+      <p class="slider-label">Max rating: {{ selectedRating }}</p>
+      <mat-form-field class="category-field">
+        <mat-label>Choose a category</mat-label>
+        <mat-select name="category" [(ngModel)]="selectedCategory" (ngModelChange)="advancedSearch()">
+          <mat-option value="">All categories</mat-option>
+          <mat-option value="{{category.name}}" *ngFor="let category of categories">{{ category.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <input type="number" name="minPrice" [(ngModel)]="minPrice" (ngModelChange)="advancedSearch()" placeholder="Min price" class="price-input">
+      <input type="number" name="maxPrice" [(ngModel)]="maxPrice" (ngModelChange)="advancedSearch()" placeholder="Max price" class="price-input">
+    </div>
+
   </form>
 
   <div class="product-list" *ngIf="paginatedProducts.length > 0; else noProducts">

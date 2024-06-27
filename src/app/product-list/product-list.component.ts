@@ -106,12 +106,13 @@ export class ProductListComponent implements OnInit {
         (maxPrice === null || product.price <= maxPrice);
       return titleMatch && ratingMatch && categoryMatch && priceMatch;
     });
+    this.currentPage = 1;
   }
   formatLabel(value: number): string {
     if (value >= 1000) {
       return Math.round(value / 1000) + 'k';
     }
 
-    return `Max ${value}`;
+    return `${value}`;
   }
 }
