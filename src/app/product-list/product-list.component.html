@@ -1,7 +1,23 @@
 <div class="container">
   <form class="search-form">
     <input type="text" name="search" [(ngModel)]="searchTerm" (ngModelChange)="searchProducts()" placeholder="Search products">
+   
+    <mat-slider  min="0" max="5" step="0.5" showTickMarks discrete [displayWith]="formatLabel" (input)="advancedSearch()">
+      <input matSliderThumb name="rating" [(ngModel)]="selectedRating">
+    </mat-slider>
+
+    <mat-form-field>
+      <mat-label>Choose an option</mat-label>
+      <mat-select name="category" [(ngModel)]="selectedCategory" (ngModelChange)="advancedSearch()">
+        <mat-option value="">All categories</mat-option>
+        <mat-option value="{{category.name}}" *ngFor="let category of categories">{{ category.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <input type="number" name="minPrice" [(ngModel)]="minPrice" (ngModelChange)="advancedSearch()" placeholder="Min price">
+    <input type="number" name="maxPrice" [(ngModel)]="maxPrice" (ngModelChange)="advancedSearch()" placeholder="Max price">
   </form>
+
   <div class="product-list" *ngIf="paginatedProducts.length > 0; else noProducts">
     <div *ngFor="let product of paginatedProducts" class="product-item" (click)="showProductDetails(product)">
       <div class="product-image" [style.backgroundImage]="'url(' + product.image + ')'" ></div>
@@ -16,21 +32,22 @@
       </div>
     </div>
   </div>
+
   <div class="pagination">
     <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
     <span>{{ currentPage }} of {{ totalPages }}</span>
     <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
   </div>
+
   <ng-template #noProducts>
     <div class="no-products">
       No products found.
     </div>
   </ng-template>
 
- 
   <div class="modal" [class.active]="selectedProduct">
     <div class="modal-content">
-      <button  class="close-modal" (click)="hideProductDetails()">
+      <button class="close-modal" (click)="hideProductDetails()">
         <mat-icon class="mat-icon-button">close</mat-icon>
       </button>
       <img [src]="selectedProduct?.image" alt="Product image: selectedProduct.image" class="product-image-full">
@@ -43,6 +60,17 @@
       </p>
       <p [ngStyle]="{'color': getStockInfo(selectedProduct?.stock).color}">
         Stock: {{ getStockInfo(selectedProduct?.stock).text }}
+      </p>
+      <p>
+        Rating: 
+        <span class="stars">
+          <ng-container *ngFor="let star of getStarsArray(selectedProduct?.rating?.rate)">
+            <mat-icon class="star-icon" *ngIf="star === 1">star</mat-icon>
+            <mat-icon class="star-icon" *ngIf="star === 0.5">star_half</mat-icon>
+            <mat-icon class="star-icon" *ngIf="star === 0">star_outline</mat-icon>
+          </ng-container>
+        </span>
+        ({{ selectedProduct?.rating?.count }} reviews)
       </p>
     </div>
   </div>

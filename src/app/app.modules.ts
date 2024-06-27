@@ -24,7 +24,8 @@ import { CartComponent } from './cart/cart.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-
+import {MatSelectModule} from '@angular/material/select';
+import {MatSliderModule} from '@angular/material/slider';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +51,9 @@ import { MatListModule } from '@angular/material/list';
     BrowserAnimationsModule,
     MatSidenavModule,
     MatListModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule,
+    MatSliderModule
   ],
   exports: [],
   providers: [
