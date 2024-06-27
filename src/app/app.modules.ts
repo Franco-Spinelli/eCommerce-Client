@@ -26,6 +26,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSliderModule} from '@angular/material/slider';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import {MatSliderModule} from '@angular/material/slider';
     LandingPageComponent,
     ProductListComponent,
     CartComponent,
-    CartItemComponent
+    CartItemComponent,
+    UserDashboardComponent
   ],
   imports: [
     BrowserModule,
