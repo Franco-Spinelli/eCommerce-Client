@@ -18,6 +18,7 @@ export class ProductListComponent implements OnInit {
   filteredProducts: Product[] = [];
   searchTerm: string = '';
   selectedProduct: any;
+  sortOrder: string; 
   currentPage = 1;
   productsPerPage = 12;
   ngOnInit(): void {
@@ -106,6 +107,15 @@ export class ProductListComponent implements OnInit {
         (maxPrice === null || product.price <= maxPrice);
       return titleMatch && ratingMatch && categoryMatch && priceMatch;
     });
+    if (this.sortOrder) {
+      this.filteredProducts = this.filteredProducts.sort((a, b) => {
+        if (this.sortOrder === 'asc') {
+          return a.price - b.price;
+        } else {
+          return b.price - a.price;
+        }
+      });
+    }
     this.currentPage = 1;
   }
   formatLabel(value: number): string {

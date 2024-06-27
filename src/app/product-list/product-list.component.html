@@ -16,6 +16,15 @@
       </mat-form-field>
       <input type="number" name="minPrice" [(ngModel)]="minPrice" (ngModelChange)="advancedSearch()" placeholder="Min price" class="price-input">
       <input type="number" name="maxPrice" [(ngModel)]="maxPrice" (ngModelChange)="advancedSearch()" placeholder="Max price" class="price-input">
+
+    
+      <mat-form-field class="sort-field">
+        <mat-label>Sort by price</mat-label>
+        <mat-select name="sort" [(ngModel)]="sortOrder" (ngModelChange)="advancedSearch()">
+          <mat-option value="asc">Lowest price first</mat-option>
+          <mat-option value="desc">Highest price first</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
   </form>
