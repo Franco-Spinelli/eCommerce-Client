@@ -83,6 +83,10 @@
         </span>
         ({{ selectedProduct?.rating?.count }} reviews)
       </p>
+      <button class="add-to-cart-btn" (click)="addToCart(selectedProduct)">
+        <mat-icon class="mat-icon-button">shopping_cart</mat-icon>
+        Add to Cart
+      </button>
     </div>
   </div>
 </div>

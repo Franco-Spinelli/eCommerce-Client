@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ProductService } from '../services/product/product.service';
-import { Category, Product } from '../models';
+import { Cart, Category, Product } from '../models';
+import { CartService } from '../services/cart/cart.service';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -12,7 +15,7 @@ export class ProductListComponent implements OnInit {
   selectedCategory: string;
   minPrice: any;
   maxPrice: any;
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private cartService:CartService, private authService: AuthService, private router: Router) { }
   products: Product[];
   categories: Category[];
   filteredProducts: Product[] = [];
@@ -93,6 +96,7 @@ export class ProductListComponent implements OnInit {
   }
 
   advancedSearch(): void {
+    
     const searchTerm = this.searchTerm.toLowerCase();
     const selectedRating = this.selectedRating ? this.selectedRating : null;
     const selectedCategory = this.selectedCategory;
@@ -124,5 +128,21 @@ export class ProductListComponent implements OnInit {
     }
 
     return `${value}`;
+  }
+
+  addToCart(product: Product) {
+    if (this.authService.isUserLoggedIn()) {
+      this.cartService.addProductToCart(product.id, 1).subscribe(
+        (cart: Cart) => {
+          console.log('Product added to cart');
+        },
+        (error) => {
+          console.error('Error adding product to cart:', error);
+          alert('Insufficient stock of the product');
+        }
+      );
+    } else {
+      this.router.navigateByUrl('/login');
+    }
   }
 }
