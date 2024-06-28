@@ -28,6 +28,7 @@ export interface Rating {
   }
 
   export interface CartItem {
+    id: number,
     quantity: number;
     title: string;
     img:string;

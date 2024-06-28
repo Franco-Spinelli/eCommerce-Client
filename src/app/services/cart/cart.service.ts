@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, tap } from 'rxjs';
-import { Cart } from '../../models';
+import { Cart, CartItem } from '../../models';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -20,6 +20,12 @@ export class CartService {
       tap(() => this.cartUpdated.next()) 
     );
   }
+  removeProductFromCart(cartItemId: number): Observable<Cart> {
+    return this.http.delete<Cart>(`${environment.urlApi}/cart/remove-product/${cartItemId}`).pipe(
+      tap(() => this.cartUpdated.next())
+    );
+  }
+
   public getCartUpdateObservable(): Observable<void> {
     return this.cartUpdated.asObservable();
   }

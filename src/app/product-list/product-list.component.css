@@ -107,17 +107,6 @@
   display: flex;
 }
 
-.modal-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  width: 80%; 
-  max-width: 800px; 
-  max-height: 80vh;
-  overflow-y: auto;
-  z-index: 1001;
-}
 .modal-content .price-amount {
   font-size: 24px;
   color: #4567b7;  
@@ -128,29 +117,6 @@
   font-size: 20px;
   margin-left: 5px;
   color: #4567b7;   
-}
-
-.close-modal {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: transparent; 
-  border: none; 
-  padding: 0; 
-  color: #ccc; 
-  cursor: pointer;
-}
-
-.close-modal .mat-icon {
-  font-size: 24px; 
-  color: inherit; 
-}
-
-.close-modal:hover {
-  color: #000; 
-}
-
-.close-modal:hover .mat-icon {
-  color: #000; 
 }
 
 .search-form {
@@ -247,7 +213,7 @@ input[type="text"]:focus {
 }
 
 .star-icon {
-  color: #ffcc00; 
+  color: #4567b7;
   font-size: 24px;
   margin-right: 2px;
 }
@@ -297,6 +263,7 @@ input[type="text"]:focus {
   cursor: pointer;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  align-self: start;
 }
 
 .add-to-cart-btn:hover {
@@ -307,6 +274,86 @@ input[type="text"]:focus {
   background-color: #4CAF50;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
+
+
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 1001;
+}
+
+.modal-body {
+  display: flex;
+  gap: 20px; /* Espacio entre la imagen y los detalles del producto */
+}
+
+.product-image-container {
+  flex: 1;
+}
+
+.product-image-full {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.product-details-container {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.close-modal {
+  position: absolute; 
+  top: 10px; 
+  right: 10px; 
+  padding: 0; 
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.close-modal .mat-icon {
+  font-size: 24px;
+  color: inherit;
+}
+
+.close-modal:hover {
+  color: #000;
+}
+
+.close-modal:hover .mat-icon {
+  color: #000;
+}
+
+
+@media (max-width: 880px) {
+  .modal-body {
+    flex-direction: column;
+    align-items: center; 
+  }
+
+  .product-image-full {
+    width: 50%;
+    height: auto;
+  }
+}
+
+
+
 @media (max-width: 1024px) {
   .product-item {
     flex: 0 0 calc(33.33% - 20px);
