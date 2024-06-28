@@ -8,6 +8,7 @@ import { CartComponent } from '../cart/cart.component';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
+  @ViewChild('cartModal') cartModal: CartComponent;
   isLoggedIn: boolean = false;
   constructor(private authService: AuthService, private router: Router) {
     this.isLoggedIn = authService.isUserLoggedIn();
@@ -17,7 +18,6 @@ export class NavBarComponent {
     alert("Logout success")
     this.router.navigateByUrl("/login")
   }
-  @ViewChild('cartModal') cartModal: CartComponent;
   openCartModal() {
     this.cartModal.openModal();
   }

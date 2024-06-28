@@ -1,9 +1,36 @@
 <div class="container">
   <form class="search-form">
     <input type="text" name="search" [(ngModel)]="searchTerm" (ngModelChange)="searchProducts()" placeholder="Search products">
+
+    <div class="filter-container">
+      <mat-slider class="rating-slider" min="0" max="5" step="0.5" showTickMarks discrete [displayWith]="formatLabel" (input)="advancedSearch()">
+        <input matSliderThumb name="rating" [(ngModel)]="selectedRating">
+      </mat-slider>
+      <p class="slider-label">Max rating: {{ selectedRating }}</p>
+      <mat-form-field class="category-field">
+        <mat-label>Choose a category</mat-label>
+        <mat-select name="category" [(ngModel)]="selectedCategory" (ngModelChange)="advancedSearch()">
+          <mat-option value="">All categories</mat-option>
+          <mat-option value="{{category.name}}" *ngFor="let category of categories">{{ category.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <input type="number" name="minPrice" [(ngModel)]="minPrice" (ngModelChange)="advancedSearch()" placeholder="Min price" class="price-input">
+      <input type="number" name="maxPrice" [(ngModel)]="maxPrice" (ngModelChange)="advancedSearch()" placeholder="Max price" class="price-input">
+
+    
+      <mat-form-field class="sort-field">
+        <mat-label>Sort by price</mat-label>
+        <mat-select name="sort" [(ngModel)]="sortOrder" (ngModelChange)="advancedSearch()">
+          <mat-option value="asc">Lowest price first</mat-option>
+          <mat-option value="desc">Highest price first</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
   </form>
-  <div class="product-list" *ngIf="filteredProducts.length > 0; else noProducts">
-    <div *ngFor="let product of filteredProducts" class="product-item" (click)="showProductDetails(product)">
+
+  <div class="product-list" *ngIf="paginatedProducts.length > 0; else noProducts">
+    <div *ngFor="let product of paginatedProducts" class="product-item" (click)="showProductDetails(product)">
       <div class="product-image" [style.backgroundImage]="'url(' + product.image + ')'" ></div>
       <div class="product-details">
         <h3 class="product-title">{{ product.title }}</h3>
@@ -17,29 +44,55 @@
     </div>
   </div>
 
+  <div class="pagination">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>{{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+
   <ng-template #noProducts>
     <div class="no-products">
       No products found.
     </div>
   </ng-template>
 
- 
   <div class="modal" [class.active]="selectedProduct">
     <div class="modal-content">
-      <button  class="close-modal" (click)="hideProductDetails()">
+      <button class="close-modal" (click)="hideProductDetails()">
         <mat-icon class="mat-icon-button">close</mat-icon>
       </button>
-      <img [src]="selectedProduct?.image" alt="Product image: selectedProduct.image" class="product-image-full">
-      <h2>{{ selectedProduct?.title }}</h2>
-      <p>{{ selectedProduct?.description }}</p>
-      <p>
-        Price: 
-        <span class="price-amount">${{ selectedProduct?.price }}</span>
-        <i class="fas fa-dollar-sign"></i>
-      </p>
-      <p [ngStyle]="{'color': getStockInfo(selectedProduct?.stock).color}">
-        Stock: {{ getStockInfo(selectedProduct?.stock).text }}
-      </p>
+      <div class="modal-body">
+        <div class="product-image-container">
+          <img [src]="selectedProduct?.image" alt="Product image: selectedProduct.image" class="product-image-full">
+        </div>
+        <div class="product-details-container">
+          <h2>{{ selectedProduct?.title }}</h2>
+          <p>{{ selectedProduct?.description }}</p>
+          <p>
+            Price: 
+            <span class="price-amount">${{ selectedProduct?.price }}</span>
+            <i class="fas fa-dollar-sign"></i>
+          </p>
+          <p [ngStyle]="{'color': getStockInfo(selectedProduct?.stock).color}">
+            Stock: {{ getStockInfo(selectedProduct?.stock).text }}
+          </p>
+          <p>
+            Rating: 
+            <span class="stars">
+              <ng-container *ngFor="let star of getStarsArray(selectedProduct?.rating?.rate)">
+                <mat-icon class="star-icon" *ngIf="star === 1">star</mat-icon>
+                <mat-icon class="star-icon" *ngIf="star === 0.5">star_half</mat-icon>
+                <mat-icon class="star-icon" *ngIf="star === 0">star_outline</mat-icon>
+              </ng-container>
+            </span>
+            ({{ selectedProduct?.rating?.count }} reviews)
+          </p>
+          <button class="add-to-cart-btn" (click)="addToCart(selectedProduct)">
+            <mat-icon class="mat-icon-button">shopping_cart</mat-icon>
+            Add to Cart
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

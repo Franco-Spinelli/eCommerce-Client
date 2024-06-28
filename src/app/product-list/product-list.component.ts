@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ProductService } from '../services/product/product.service';
-import { Product } from '../models';
+import { Cart, Category, Product } from '../models';
+import { CartService } from '../services/cart/cart.service';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -8,23 +11,34 @@ import { Product } from '../models';
   styleUrl: './product-list.component.css'
 })
 export class ProductListComponent implements OnInit {
-  constructor(private productService: ProductService){}
-    products: Product[];
-    filteredProducts: Product[] = [];
-    searchTerm: string = '';
-    selectedProduct: any;
-    ngOnInit(): void {
-      this.loadProducts();
-    }
-  
-    loadProducts(): void {
-      this.productService.getAllProducts().subscribe((data) => {
-        this.products = data;
-        this.filteredProducts = data; 
-      });
-    }
-  
-    
+  selectedRating: number = 0;
+  selectedCategory: string;
+  minPrice: any;
+  maxPrice: any;
+  constructor(private productService: ProductService, private cartService:CartService, private authService: AuthService, private router: Router) { }
+  products: Product[];
+  categories: Category[];
+  filteredProducts: Product[] = [];
+  searchTerm: string = '';
+  selectedProduct: any;
+  sortOrder: string; 
+  currentPage = 1;
+  productsPerPage = 12;
+  ngOnInit(): void {
+    this.loadProducts();
+  }
+
+  loadProducts(): void {
+    this.productService.getAllProducts().subscribe((data) => {
+      this.products = data;
+      this.filteredProducts = data;
+    });
+    this.productService.getCategories().subscribe((data) => {
+      this.categories = data;
+    });
+  }
+
+
   showProductDetails(product: any) {
     this.selectedProduct = product;
   }
@@ -53,4 +67,82 @@ export class ProductListComponent implements OnInit {
       this.filteredProducts = this.products;
     }
   }
+  get paginatedProducts() {
+    const startIndex = (this.currentPage - 1) * this.productsPerPage;
+    const endIndex = startIndex + this.productsPerPage;
+    return this.filteredProducts.slice(startIndex, endIndex);
   }
+  previousPage() {
+    this.currentPage--;
+  }
+
+  nextPage() {
+    this.currentPage++;
+  }
+
+  get totalPages() {
+    return Math.ceil(this.filteredProducts.length / this.productsPerPage);
+  }
+  getStarsArray(rate: number): number[] {
+    const filledStars = Math.floor(rate);
+    const halfStars = rate % 1 !== 0 ? 1 : 0;
+    const emptyStars = 5 - filledStars - halfStars;
+
+    return [
+      ...Array(filledStars).fill(1),
+      ...Array(halfStars).fill(0.5),
+      ...Array(emptyStars).fill(0)
+    ];
+  }
+
+  advancedSearch(): void {
+    
+    const searchTerm = this.searchTerm.toLowerCase();
+    const selectedRating = this.selectedRating ? this.selectedRating : null;
+    const selectedCategory = this.selectedCategory;
+    const minPrice = this.minPrice !== undefined ? this.minPrice : null;
+    const maxPrice = this.maxPrice !== undefined ? this.maxPrice : null;
+    const tolerance = 0.1;
+    this.filteredProducts = this.products.filter(product => {
+      const titleMatch = product.title.toLowerCase().includes(searchTerm);
+      const ratingMatch = selectedRating !== null ? product.rating.rate < selectedRating : true;
+      const categoryMatch = selectedCategory ? product.category.toLowerCase() === selectedCategory.toLowerCase() : true;
+      const priceMatch = (minPrice === null || product.price >= minPrice) &&
+        (maxPrice === null || product.price <= maxPrice);
+      return titleMatch && ratingMatch && categoryMatch && priceMatch;
+    });
+    if (this.sortOrder) {
+      this.filteredProducts = this.filteredProducts.sort((a, b) => {
+        if (this.sortOrder === 'asc') {
+          return a.price - b.price;
+        } else {
+          return b.price - a.price;
+        }
+      });
+    }
+    this.currentPage = 1;
+  }
+  formatLabel(value: number): string {
+    if (value >= 1000) {
+      return Math.round(value / 1000) + 'k';
+    }
+
+    return `${value}`;
+  }
+
+  addToCart(product: Product) {
+    if (this.authService.isUserLoggedIn()) {
+      this.cartService.addProductToCart(product.id, 1).subscribe(
+        (cart: Cart) => {
+          console.log('Product added to cart');
+        },
+        (error) => {
+          console.error('Error adding product to cart:', error);
+          alert('Insufficient stock of the product');
+        }
+      );
+    } else {
+      this.router.navigateByUrl('/login');
+    }
+  }
+}

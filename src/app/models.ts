@@ -13,7 +13,10 @@ export interface Rating {
     category: string;
     stock: number;
   }
-
+  export interface Category {
+    id: number;
+    name: string;
+  }
   export interface Address {
     id: number;
     country: string;
@@ -25,6 +28,7 @@ export interface Rating {
   }
 
   export interface CartItem {
+    id: number,
     quantity: number;
     title: string;
     img:string;

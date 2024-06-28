@@ -23,7 +23,7 @@ export class RegisterComponent {
     this.authService.register(this.registerForm.value).subscribe((data)=>{
       console.log(data);
       alert("Welcome!")
-      //this.router.navigateByUrl("/")
+      this.router.navigateByUrl("/products")
     },
     (error)=>{
       console.log(error);
