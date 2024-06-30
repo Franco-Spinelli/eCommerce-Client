@@ -27,6 +27,8 @@ import { MatListModule } from '@angular/material/list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSliderModule} from '@angular/material/slider';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,9 +57,12 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
     MatListModule,
     FormsModule,
     MatSelectModule,
-    MatSliderModule
+    MatSliderModule,
+    MatTooltipModule,
+    MatSnackBarModule,
   ],
-  exports: [],
+  exports: [ MatTooltipModule,
+    MatSnackBarModule],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptorService,multi:true},
     {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptorService,multi:true}],
