@@ -13,4 +13,10 @@ export class UserService {
   getAllAddresses(): Observable<Address[]>{
     return this.http.get<Address[]>(environment.urlApi + "/user/get-addresses");
   }
+  addAddress(address: Address): Observable<Address> {
+    return this.http.post<Address>(environment.urlApi + "/user/add-address", address);
+  }
+  updateAddress(address: Address): Observable<Address>{
+    return this.http.put<Address>(environment.urlApi + "/user/update-address", address);
+  }
 }

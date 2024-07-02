@@ -29,6 +29,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AddressFormComponent } from './address-form/address-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ProductListComponent,
     CartComponent,
     CartItemComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
+    AddressFormComponent
   ],
   imports: [
     BrowserModule,

@@ -36,7 +36,7 @@
         <h3 class="product-title">{{ product.title }}</h3>
         <p class="product-price">
           <span class="price-label">Price:</span>
-          <span class="price-amount">${{ product.price }}</span>
+          <span class="price-amount">${{ product.price | number: '1.2-2' }}</span>
           <i class="fas fa-dollar-sign"></i>
         </p>
         <p class="product-description">{{ product.description | slice:0:100 }} {{ product.description.length > 100? '...' : '' }}</p>
@@ -70,7 +70,7 @@
           <p>{{ selectedProduct?.description }}</p>
           <p>
             Price: 
-            <span class="price-amount">${{ selectedProduct?.price }}</span>
+            <span class="price-amount">${{ selectedProduct?.price | number: '1.2-2'}}</span>
             <i class="fas fa-dollar-sign"></i>
           </p>
           <p [ngStyle]="{'color': getStockInfo(selectedProduct?.stock).color}">

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CartComponent } from '../cart/cart.component';
 import { UserService } from '../services/user/user.service';
 import { Address } from '../models';
+import { AddressFormComponent } from '../address-form/address-form.component';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -11,6 +12,7 @@ import { Address } from '../models';
 })
 export class NavBarComponent implements OnInit{
   @ViewChild('cartModal') cartModal: CartComponent;
+  @ViewChild('addressModal') addressModal: AddressFormComponent;
   isLoggedIn: boolean = false;
   addresses: Address[];
   selectedAddress: Address;
@@ -29,6 +31,9 @@ export class NavBarComponent implements OnInit{
   openCartModal() {
     this.cartModal.openModal();
   }
+  openAddressModal(){
+    this.addressModal.openModal();
+  }
   getAddresses(){
     this.userService.getAllAddresses().subscribe((data)=>{
       this.addresses = data;
@@ -38,5 +43,9 @@ export class NavBarComponent implements OnInit{
   }
   selectAddress(address: any) {
     this.selectedAddress = address;
+  }
+  openEditAddressModal(address: Address) {
+    // Abrir el formulario de edición de la dirección
+    this.addressModal.open(address);
   }
 }
