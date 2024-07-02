@@ -339,6 +339,35 @@ input[type="text"]:focus {
   color: #000;
 }
 
+.quantity-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.select-container {
+  position: relative;
+  display: inline-block;
+}
+
+.select-container select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 10rem;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.select-container select:focus {
+  border-color: #4567b7; 
+}
+.quantity-message {
+  font-size: 14px;
+  color: #999;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
 
 @media (max-width: 880px) {
   .modal-body {

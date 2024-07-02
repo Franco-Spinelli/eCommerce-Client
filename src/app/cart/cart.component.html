@@ -3,11 +3,11 @@
     <button class="close-modal" (click)="closeModal()">
       <mat-icon class="mat-icon-button">close</mat-icon>
     </button>
-    <ul>
-      <li *ngFor="let item of cart?.cartItems">
+    <div>
+      <div *ngFor="let item of cart?.cartItems">
         <app-cart-item [cartItem]="item"></app-cart-item>
-      </li>
-    </ul>
+      </div>
+    </div>
     <p class="total">Total: {{ cart.totalPrice | currency }}</p>
     <button class="checkout-btn">Checkout</button>
   </div>

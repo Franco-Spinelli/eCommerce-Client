@@ -11,19 +11,26 @@ import { Router } from '@angular/router';
   styleUrl: './product-list.component.css'
 })
 export class ProductListComponent implements OnInit {
+  //productList
+  products: Product[];
+  //filters
+  selectedProduct: any;
   selectedRating: number = 0;
   selectedCategory: string;
   minPrice: any;
   maxPrice: any;
-  constructor(private productService: ProductService, private cartService:CartService, private authService: AuthService, private router: Router) { }
-  products: Product[];
   categories: Category[];
   filteredProducts: Product[] = [];
   searchTerm: string = '';
-  selectedProduct: any;
   sortOrder: string; 
+  //page
   currentPage = 1;
   productsPerPage = 12;
+  //stock
+  quantity: number = 1;
+  quantityMessage: string;
+  maxQuantitytoBuy: number;
+  constructor(private productService: ProductService, private cartService:CartService, private authService: AuthService, private router: Router) { }
   ngOnInit(): void {
     this.loadProducts();
   }
@@ -129,16 +136,31 @@ export class ProductListComponent implements OnInit {
 
     return `${value}`;
   }
-
-  addToCart(product: Product) {
+  
+  getQuantityMessage(): string {
+    const maxQuantity = Math.floor(this.selectedProduct?.stock * 0.25);
+    const available = this.selectedProduct?.stock - maxQuantity;
+    return `(+${available} available)`;
+  }
+  getQuantityOptions() {
+    this.maxQuantitytoBuy = Math.floor(this.selectedProduct?.stock * 0.4);
+    const options = [];
+    for (let i = 1; i <= this.maxQuantitytoBuy; i++) {
+      options.push(i);
+    }
+    return options;
+  }
+  addToCart(product: Product, quantity: number) {
     if (this.authService.isUserLoggedIn()) {
-      this.cartService.addProductToCart(product.id, 1).subscribe(
+      this.cartService.addProductToCart(product.id, quantity).subscribe(
         (cart: Cart) => {
           console.log('Product added to cart');
+          this.quantity = 1;
         },
         (error) => {
           console.error('Error adding product to cart:', error);
           alert('Insufficient stock of the product');
+          this.quantity = 1;
         }
       );
     } else {
