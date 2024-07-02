@@ -145,6 +145,10 @@ export class ProductListComponent implements OnInit {
   getQuantityOptions() {
     this.maxQuantitytoBuy = Math.floor(this.selectedProduct?.stock * 0.4);
     const options = [];
+    if (this.maxQuantitytoBuy < 1) {
+      // If stock is low, set max quantity to 1
+      this.maxQuantitytoBuy = 1;
+    }
     for (let i = 1; i <= this.maxQuantitytoBuy; i++) {
       options.push(i);
     }
