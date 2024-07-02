@@ -1,0 +1,47 @@
+<div class="modal-container" [class.active]="isOpen">
+    <div class="modal-content">
+      <button class="close-modal" (click)="closeModal()">
+        <mat-icon class="mat-icon-button">close</mat-icon>
+      </button>
+      <div class="container">
+              <form [formGroup]="addressForm">
+                <div>
+                <label for="country">Country</label>
+                <mat-form-field class="select">                 
+                  <mat-select  formControlName="country" [ngClass]="{'is-invalid': addressForm.get('country')?.touched && addressForm.get('country')?.invalid}" required>
+                      <mat-option *ngFor="let country of countries" [value]="country.name">{{country.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+                <div>
+                <label for="state">State</label>
+                <mat-form-field class="select">
+                  <mat-select  formControlName="state" [ngClass]="{'is-invalid': addressForm.get('state')?.touched && addressForm.get('state')?.invalid}" required>
+                    <mat-option *ngFor="let state of states" [value]="state.name">{{state.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field >
+              </div>
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input type="text" class="form-control" formControlName="city" [ngClass]="{'is-invalid': addressForm.get('city')?.touched && addressForm.get('city')?.invalid}" required />
+                </div>
+                <div class="form-group">
+                  <label for="postalCode">Postal Code</label>
+                  <input type="text" class="form-control" formControlName="postalCode" [ngClass]="{'is-invalid': addressForm.get('postalCode')?.touched && addressForm.get('postalCode')?.invalid}" required />
+                </div>
+                <div class="form-group">
+                  <label for="street">Street</label>
+                  <input type="text" class="form-control" formControlName="street" [ngClass]="{'is-invalid': addressForm.get('street')?.touched && addressForm.get('street')?.invalid}" required />
+                </div>
+                <div class="form-group">
+                  <label for="number">Number</label>
+                  <input type="text" class="form-control" formControlName="number" [ngClass]="{'is-invalid': addressForm.get('number')?.touched && addressForm.get('number')?.invalid}" required />
+                </div>
+                <span *ngIf="!isUpdate"> <button type="submit" class="btn btn-primary"  (click)="onSubmit()">Submit</button></span>
+                <span *ngIf="isUpdate"> <button type="submit" class="btn btn-primary"  (click)="update()">Submit</button></span>
+                <span *ngIf="submissionSuccess" class="checkmark"> <mat-icon>check_circle_outline</mat-icon> </span>
+              </form>
+              
+      </div>
+     </div>
+  </div>

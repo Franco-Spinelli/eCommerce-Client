@@ -38,3 +38,28 @@
 .button-nav-bar:hover .icon-nav-bar {
   color: #bbbbbb;
 }
+.text-nav-bar{
+  color: white;
+}
+
+.add-address-btn {
+  width: 100%;
+  background-color: transparent; 
+  padding-top: 10px;
+  border: none; 
+  font-size: 16px; 
+  color: #333; 
+  cursor: pointer; 
+  transition: background-color 0.2s ease; 
+  font-weight: bold;
+}
+
+.add-address-btn:hover {
+  background-color: #f7f7f7; 
+  color: #4567b7; 
+}
+
+.add-address-btn:active {
+  background-color: #ddd; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
