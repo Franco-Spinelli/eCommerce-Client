@@ -87,7 +87,17 @@
             </span>
             ({{ selectedProduct?.rating?.count }} reviews)
           </p>
-          <button class="add-to-cart-btn" (click)="addToCart(selectedProduct)">
+          <div class="quantity-container">
+            <label for="quantity">Quantity:</label>
+            <div class="select-container">
+              <select [(ngModel)]="quantity" id="quantity">
+                <option *ngFor="let i of getQuantityOptions()" [value]="i">{{ i }}</option>
+              </select>
+              <span class="quantity-message">{{ getQuantityMessage() }}</span>
+            </div>
+            
+          </div>
+          <button class="add-to-cart-btn" (click)="addToCart(selectedProduct,quantity)">
             <mat-icon class="mat-icon-button">shopping_cart</mat-icon>
             Add to Cart
           </button>

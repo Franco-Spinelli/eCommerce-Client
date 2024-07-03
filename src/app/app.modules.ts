@@ -30,6 +30,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AddressFormComponent } from './address-form/address-form.component';
+import { OrderComponent } from './order/order.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { AddressFormComponent } from './address-form/address-form.component';
     CartComponent,
     CartItemComponent,
     UserDashboardComponent,
-    AddressFormComponent
+    AddressFormComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
