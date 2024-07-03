@@ -12,9 +12,11 @@
     <a class="app-name" href="/">My App</a>
     <span class="example-spacer"></span>
     <button mat-button [matMenuTriggerFor]="addressesMenu" class="address-button">
-      <mat-icon class="icon-nav-bar" >arrow_drop_down</mat-icon>
+      <mat-icon class="icon-nav-bar">arrow_drop_down</mat-icon>
       <mat-icon class="icon-nav-bar">location_on</mat-icon>
-      <span class="text-nav-bar">{{ selectedAddress.street }} {{ selectedAddress.number }}</span>
+      <span class="text-nav-bar">
+        {{ selectedAddress ? selectedAddress.street + ' ' + selectedAddress.number : 'Add address' }}
+      </span>
     </button>
     <mat-menu #addressesMenu="matMenu">
       <ng-container *ngFor="let address of addresses">

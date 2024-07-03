@@ -34,7 +34,6 @@ export class CartComponent implements OnInit, OnDestroy{
       (data) => {
         if (data) {
           this.cart = data;
-          console.log('Data received:', data);
         } else {
           console.error('Empty response from getCart()');
         }

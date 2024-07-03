@@ -9,6 +9,6 @@
       </div>
     </div>
     <p class="total">Total: {{ cart.totalPrice | currency }}</p>
-    <button class="checkout-btn">Checkout</button>
+    <button class="checkout-btn" routerLink="/order" (click)="closeModal()" [disabled]="cart.totalPrice === 0">Go to pay</button>
   </div>
 </div>

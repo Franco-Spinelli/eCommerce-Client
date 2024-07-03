@@ -1,0 +1,152 @@
+
+.cart-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    
+  }
+  
+  
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .cart-item-list {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .cart-item-image {
+    max-height: 5rem; 
+    object-fit: cover;
+    border-radius: 4px; 
+    margin-right: 10px; 
+  }
+  .cart-item-details {
+    flex: 1;
+  }
+  
+  .cart-item-details h3 {
+    font-size: 1rem;
+    margin: 0;
+  }
+  
+  .cart-item-description {
+    font-size: 0.875rem;
+    color: #666;
+  }
+  
+
+  .shipping-options {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  
+  .shipping-option {
+    margin-bottom: 10px;
+  }
+  
+  .checkbox-label {
+    margin-left: 5px;
+  }
+  
+  .select {
+    width: 100%;
+  }
+  
+ 
+  .order-summary {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  
+  .summary-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .separator {
+    height: 1px;
+    background-color: #ccc;
+    margin: 10px 0;
+  }
+  
+  .total {
+    font-weight: bold;
+  }
+  
+  .submit-button {
+    margin-top: 20px;
+    text-align: right;
+  }
+  .custom-select {
+    
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    appearance: none; 
+    background-color: white; 
+    background-image: linear-gradient(to bottom, #ffffff, #f8f8f8); 
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .custom-select:hover {
+    border-color: #aaa;
+  }
+  
+  .custom-select:focus {
+    outline: none; 
+    border-color: #4d90fe; 
+  }
+  
+  .custom-select option {
+    padding: 10px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    color: #333; 
+  }
+  .checkbox {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    vertical-align: middle; 
+  }
+  .checkbox:hover {
+    border-color: #aaa;
+  }
+  
+  .checkbox:checked:hover {
+    border-color: #337ab7;
+  }

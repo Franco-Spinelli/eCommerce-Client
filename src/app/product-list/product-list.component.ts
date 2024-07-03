@@ -143,15 +143,27 @@ export class ProductListComponent implements OnInit {
     return `(+${available} available)`;
   }
   getQuantityOptions() {
+    // Calculate the maximum quantity to buy as 40% of the available stock, rounded down
     this.maxQuantitytoBuy = Math.floor(this.selectedProduct?.stock * 0.4);
+  
+    // Create an empty array to store the quantity options
     const options = [];
+  
+    // If the maximum quantity to buy is less than 1, set the maximum quantity to 1
     if (this.maxQuantitytoBuy < 1) {
-      // If stock is low, set max quantity to 1
       this.maxQuantitytoBuy = 1;
     }
+    // If the maximum quantity to buy exceeds 20, cap it at 20
+    if (this.maxQuantitytoBuy > 20) {
+      this.maxQuantitytoBuy = 20;
+    }
+  
+    // Fill the options array with values from 1 to the maximum quantity to buy
     for (let i = 1; i <= this.maxQuantitytoBuy; i++) {
       options.push(i);
     }
+  
+    // Return the array of quantity options
     return options;
   }
   addToCart(product: Product, quantity: number) {
