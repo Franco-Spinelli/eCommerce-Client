@@ -3,9 +3,11 @@ import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { CartComponent } from '../cart/cart.component';
 import { UserService } from '../services/user/user.service';
-import { Address } from '../models';
+import { Address, Cart } from '../models';
 import { AddressFormComponent } from '../address-form/address-form.component';
 import { OrderService } from '../services/order/order.service';
+import { CartService } from '../services/cart/cart.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -17,11 +19,15 @@ export class NavBarComponent implements OnInit{
   isLoggedIn: boolean = false;
   addresses: Address[];
   selectedAddress: Address;
-  constructor(private authService: AuthService, private router: Router, private userService: UserService, private orderService: OrderService) {
+  subscription: Subscription;
+  cart:Cart;
+  ordersCount:number;
+  constructor(private authService: AuthService, private router: Router, private userService: UserService, private orderService: OrderService, private cartService:CartService) {
   }
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isUserLoggedIn();
     this.getAddresses();
+    this.getItemCount();
   }
   logout() {
     this.authService.logOut();
@@ -64,4 +70,33 @@ export class NavBarComponent implements OnInit{
     this.orderService.setSelectedAddress(this.selectedAddress);
   }
   
+  getItemCount() {
+    this.subscription = this.cartService.getCartUpdateObservable().subscribe(
+      () => {
+        console.log('Cart update triggered');
+        this.updateCart(); 
+      },
+      (error) => {
+        console.error('Error in cart update observable:', error);
+      }
+    );
+    this.updateCart();
+    this.orderService.getOrders().subscribe((data)=>{
+      this.ordersCount= data.length;
+    })
+  }
+  private updateCart(): void {
+    this.cartService.getCart().subscribe(
+      (data) => {
+        if (data) {
+          this.cart = data;
+        } else {
+          console.error('Empty response from getCart()');
+        }
+      },
+      (error) => {
+        console.error('Error fetching cart:', error);
+      }
+    );
+  }
 }

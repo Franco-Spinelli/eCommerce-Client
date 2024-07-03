@@ -5,6 +5,9 @@
       <h2 class="section-title">Cart Items</h2>
       <div class="cart-item-list">
         <div *ngFor="let item of cart.cartItems" class="cart-item">
+          <button class="remove-item" (click)="removeItem(item)" matTooltip="Remove this item from the cart">
+            <mat-icon>close</mat-icon>
+          </button>
           <img [src]="item.img" alt="{{ item.title }}" class="cart-item-image">
           <div class="cart-item-details">
             <h3>{{ item.title }}</h3>
@@ -13,11 +16,13 @@
         </div>
       </div>
     </div>
-    <form [formGroup]="orderForm">
+   
     <div>
       <h2 class="section-title">Shipping</h2>
       <div class="shipping-options">
+        <form [formGroup]="orderForm">
         <div class="shipping-option">
+         
           <label>
             <input type="checkbox" formControlName="hasDelivery" class="checkbox">
             <span class="checkbox-label">Add shipping</span>
@@ -29,14 +34,16 @@
               <option [value]="selectedAddress">
                 {{ selectedAddress.street }} {{ selectedAddress.number }}
               </option>
-              <option *ngFor="let address of allAddress" [value]="address">
-                {{ address?.street }} {{ address?.number }}
+              <option *ngFor="let address of allAddress" [ngValue]="address">
+                {{ address.street }} {{ address.number }}
               </option>
             </select>
+          
         </div>
+      </form>
       </div>
     </div>
-  </form>
+ 
   </div>
   <div class="order-summary">
     <h2 class="section-title">Order Summary</h2>

@@ -42,3 +42,20 @@ export interface Rating {
     totalItems: number;
     totalPrice: number;
   }
+  export interface OrderItem {
+    id: number;
+    quantity: number;
+    product: Product;
+    totalPrice: number;
+  }
+  export interface Order {
+    id: number;
+    code:string;
+    hasDelivery: boolean;
+    deliveryAddress: Address;
+    date: Date;
+    totalItems: number;
+    totalPrice: number;
+    orderItems: Set<OrderItem>;
+    customer: string;
+  }

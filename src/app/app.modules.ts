@@ -31,6 +31,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AddressFormComponent } from './address-form/address-form.component';
 import { OrderComponent } from './order/order.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { MatCardModule } from '@angular/material/card';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +45,8 @@ import { OrderComponent } from './order/order.component';
     CartItemComponent,
     UserDashboardComponent,
     AddressFormComponent,
-    OrderComponent
+    OrderComponent,
+    MyOrdersComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +67,9 @@ import { OrderComponent } from './order/order.component';
     MatSliderModule,
     MatTooltipModule,
     MatSnackBarModule,
+    MatCardModule,
+    MatListModule 
+    
   ],
   exports: [ MatTooltipModule,
     MatSnackBarModule],

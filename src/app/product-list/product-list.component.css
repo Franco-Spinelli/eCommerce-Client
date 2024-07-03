@@ -293,7 +293,7 @@ input[type="text"]:focus {
 
 .modal-body {
   display: flex;
-  gap: 20px; /* Espacio entre la imagen y los detalles del producto */
+  gap: 20px; 
 }
 
 .product-image-container {

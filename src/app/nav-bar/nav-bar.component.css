@@ -5,10 +5,44 @@
   align-items: center;
   justify-content: space-between;
 }
+.nav-bar-second{
+  background-color: #f7f7f7;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+}
+.nav-bar-second button{
+  margin: 0 2rem;
+} 
+.button-nav-bar span {
+  margin-left: 5px; 
+  font-size: 16px;
+
+}
 
 .example-spacer {
   flex-grow: 1;
+  margin: 0 -0.5rem;
 }
+
+.center-button {
+ 
+  background-color: transparent; 
+  color: white;  
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px; 
+  font-weight: bold; 
+
+  text-transform: uppercase; 
+  letter-spacing: 1px; 
+  
+}
+
 
 
 .accountButton {
@@ -42,6 +76,13 @@
   color: white;
 }
 
+.text-nav-bar-second{
+  color: #2e56b6; 
+}
+.icon-nav-bar-second{
+  color: #2e56b6; 
+}
+
 .add-address-btn {
   width: 100%;
   background-color: transparent; 
@@ -62,4 +103,51 @@
 .add-address-btn:active {
   background-color: #ddd; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+.app-name {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.logo {
+
+  margin-right: 8px;
+  color: #ffffff;
+}
+.cart-item-count {
+  background-color: #4567b7; 
+  color: white;
+  border-radius: 30%;
+  padding: 0px 6px;
+  font-size: 0.8em;
+  margin-left: 8px;
+  position: relative;
+  top: -10px;
+  right: -10px;
+}
+
+@media (max-width: 680px) {
+  .text-nav-bar-second {
+    display: none; 
+  }
+
+  .icon-nav-bar-second {
+    margin-left: 0; 
+  }
+}
+@media (max-width: 545px) {
+  .text-nav-bar {
+    display: none; 
+  }
+
+  .icon-nav-bar {
+    margin-left: 0; 
+  }
+}
+@media (max-width: 430px) {
+  .cart-item-count{
+    display: none; 
+  }
 }
