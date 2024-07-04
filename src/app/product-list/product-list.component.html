@@ -36,8 +36,16 @@
         <h3 class="product-title">{{ product.title }}</h3>
         <p class="product-price">
           <span class="price-label">Price:</span>
-          <span class="price-amount">${{ product.price | number: '1.2-2' }}</span>
+          <span class="price-amount" [ngClass]="{'discounted': product.discount > 0}">
+            ${{ product.discount > 0 ? product.discountPrice : product.price | number: '1.2-2' }}
+          </span>
           <i class="fas fa-dollar-sign"></i>
+          <span class="old-price" *ngIf="product.discount > 0">
+            <s>{{ product.price }}</s>
+          </span>
+          <span class="discount" *ngIf="product.discount > 0">
+            ({{ product.discount }}% off)
+          </span>
         </p>
         <p class="product-description">{{ product.description | slice:0:100 }} {{ product.description.length > 100? '...' : '' }}</p>
       </div>
@@ -70,11 +78,16 @@
           <p>{{ selectedProduct?.description }}</p>
           <p>
             Price: 
-            <span class="price-amount">${{ selectedProduct?.price | number: '1.2-2'}}</span>
+            <span class="price-amount" [ngClass]="{'discounted': selectedProduct?.discount > 0}">
+              ${{ selectedProduct?.discount > 0 ? selectedProduct?.discountPrice : selectedProduct?.price | number: '1.2-2' }}
+            </span>
             <i class="fas fa-dollar-sign"></i>
-          </p>
-          <p [ngStyle]="{'color': getStockInfo(selectedProduct?.stock).color}">
-            Stock: {{ getStockInfo(selectedProduct?.stock).text }}
+            <span class="old-price" *ngIf="selectedProduct?.discount > 0">
+              <s>{{ selectedProduct?.price | number: '1.2-2' }}</s>
+            </span>
+            <span class="discount" *ngIf="selectedProduct?.discount > 0">
+              ({{ selectedProduct?.discount }}% off)
+            </span>
           </p>
           <p>
             Rating: 

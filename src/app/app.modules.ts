@@ -68,8 +68,7 @@ import { MatCardModule } from '@angular/material/card';
     MatTooltipModule,
     MatSnackBarModule,
     MatCardModule,
-    MatListModule 
-    
+    MatListModule, 
   ],
   exports: [ MatTooltipModule,
     MatSnackBarModule],

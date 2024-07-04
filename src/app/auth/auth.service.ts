@@ -9,58 +9,71 @@ import { RegisterRequest } from './registerRequest';
   providedIn: 'root'
 })
 export class AuthService {
-  currentLoginOn:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
-  currentUserData:BehaviorSubject<String>=new BehaviorSubject<String>('');
-  constructor(private http: HttpClient) { 
-    this.currentLoginOn = new BehaviorSubject<boolean>(sessionStorage.getItem("token")!=null);
-    this.currentUserData = new BehaviorSubject<String>(sessionStorage.getItem("token")||"");
-  }
-  login(credentials: LoginRequest):Observable<any>{
-    return this.http.post<any>(environment.urlHost + "auth/login",credentials).pipe(
-      tap((userData)=>{
-        sessionStorage.setItem("token",userData.token);
-        this.currentUserData.next(userData.token);
-        this.currentLoginOn.next(true);
-      }),
-      map((userData)=>userData.token),
-      catchError(this.hadleError)
-    )
-   }
-   register(credentials: RegisterRequest):Observable<any>{
-    return this.http.post<any>(environment.urlHost + "auth/signup",credentials).pipe(
-      tap((userData)=>{
-        sessionStorage.setItem("token",userData.token);
-        this.currentUserData.next(userData.token);
-        this.currentLoginOn.next(true);
-      }),
-      map((userData)=>userData.token),
-      catchError(this.hadleError)
-    )
-   }
-   logOut(): void{
-    sessionStorage.removeItem("token");
-    this.currentLoginOn.next(false);
-   }
-   private hadleError(error:HttpErrorResponse){
-    if(error.status===0){
-      console.error('Error',error.error)
-    }else{
-      console.error("backend returned the status code ", error)
-    }
-    return throwError(()=> new Error('Something is wrong, please try again'));
-  }
-  get userData():Observable<String>{
-    return this.currentUserData.asObservable();
-  }
-  get userLoginOn(): Observable<boolean>{
-    return this.currentLoginOn.asObservable();
-  }
-  get userToken():String{
-    return this.currentUserData.value;
-  }
-  public isUserLoggedIn(): boolean{
-    if(this.userToken == "") return false;
-    return true;
+  private loggedIn = new BehaviorSubject<boolean>(false);
+  authStatus = this.loggedIn.asObservable();
+  currentLoginOn = new BehaviorSubject<boolean>(false);
+  currentUserData = new BehaviorSubject<string>('');
+
+  constructor(private http: HttpClient) {
+    this.currentLoginOn.next(sessionStorage.getItem('token') !== null);
+    this.currentUserData.next(sessionStorage.getItem('token') || '');
+    this.loggedIn.next(this.currentLoginOn.value);
   }
 
+  login(credentials: LoginRequest): Observable<any> {
+    return this.http.post<any>(environment.urlHost + 'auth/login', credentials).pipe(
+      tap((userData) => {
+        sessionStorage.setItem('token', userData.token);
+        this.currentUserData.next(userData.token);
+        this.currentLoginOn.next(true);
+        this.loggedIn.next(true);
+      }),
+      map((userData) => userData.token),
+      catchError(this.handleError)
+    );
+  }
+
+  register(credentials: RegisterRequest): Observable<any> {
+    return this.http.post<any>(environment.urlHost + 'auth/signup', credentials).pipe(
+      tap((userData) => {
+        sessionStorage.setItem('token', userData.token);
+        this.currentUserData.next(userData.token);
+        this.currentLoginOn.next(true);
+        this.loggedIn.next(true);
+      }),
+      map((userData) => userData.token),
+      catchError(this.handleError)
+    );
+  }
+
+  logOut(): void {
+    sessionStorage.removeItem('token');
+    this.currentLoginOn.next(false);
+    this.loggedIn.next(false);
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      console.error('Error:', error.error);
+    } else {
+      console.error('Backend returned status code:', error.status);
+    }
+    return throwError(() => new Error('Something went wrong, please try again.'));
+  }
+
+  get userData(): Observable<string> {
+    return this.currentUserData.asObservable();
+  }
+
+  get userLoginOn(): Observable<boolean> {
+    return this.currentLoginOn.asObservable();
+  }
+
+  get userToken(): string {
+    return this.currentUserData.value;
+  }
+
+  public isUserLoggedIn(): boolean {
+    return !!this.userToken;
+  }
 }

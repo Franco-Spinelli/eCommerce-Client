@@ -28,17 +28,19 @@
             <span class="checkbox-label">Add shipping</span>
           </label>
         </div>
-        <div *ngIf="orderForm.get('hasDelivery')?.value" class="shipping-address">
+        <div *ngIf="orderForm.get('hasDelivery')?.value && allAddress.length > 0" class="shipping-address">
           <label>Select an address:</label>
             <select formControlName="selectedAddress" class="custom-select">
               <option [value]="selectedAddress">
                 {{ selectedAddress.street }} {{ selectedAddress.number }}
               </option>
-              <option *ngFor="let address of allAddress" [ngValue]="address">
+              <option *ngFor="let address of allAddress" [ngValue]="address" >
                 {{ address.street }} {{ address.number }}
               </option>
             </select>
-          
+        </div>
+        <div *ngIf="orderForm.get('hasDelivery')?.value && allAddress.length === 0" class="shipping-address">
+          <p>No addresses available. Please add an address.</p>
         </div>
       </form>
       </div>
