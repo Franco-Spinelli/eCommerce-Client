@@ -28,7 +28,6 @@ export class ProductListComponent implements OnInit {
   productsPerPage = 12;
   //stock
   quantity: number = 1;
-  quantityMessage: string;
   maxQuantitytoBuy: number;
   constructor(private productService: ProductService, private cartService:CartService, private authService: AuthService, private router: Router) { }
   ngOnInit(): void {

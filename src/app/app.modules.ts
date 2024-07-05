@@ -33,6 +33,7 @@ import { AddressFormComponent } from './address-form/address-form.component';
 import { OrderComponent } from './order/order.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { MatCardModule } from '@angular/material/card';
+import { DealsComponent } from './deals/deals.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,8 @@ import { MatCardModule } from '@angular/material/card';
     UserDashboardComponent,
     AddressFormComponent,
     OrderComponent,
-    MyOrdersComponent
+    MyOrdersComponent,
+    DealsComponent
   ],
   imports: [
     BrowserModule,

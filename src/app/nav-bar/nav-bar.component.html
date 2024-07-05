@@ -5,21 +5,30 @@
     <button mat-raised-button class="accountButton" color="primary" [routerLink]="['/register']">Sign Up Now</button>
     <button mat-raised-button class="accountButton" color="primary" [routerLink]="['/login']">Log In</button>
   </mat-toolbar>
+  <mat-toolbar class="nav-bar-second">
+    <button mat-button   routerLink="/products">
+      <span class="text-nav-bar-second">View All Products</span>
+      <mat-icon class="icon-nav-bar-second">inbox</mat-icon>
+    </button>
+    <button mat-button  routerLink="/deals">
+      <mat-icon class="icon-nav-bar-second">local_offer</mat-icon>
+      <span class="text-nav-bar-second">Deals</span>
+    </button>
+  </mat-toolbar>
 </div>
 
 <div *ngIf="isLoggedIn">
   <mat-toolbar class="nav-bar">
     <button mat-button routerLink="/">
-      <span class="app-name">My App</span>
       <mat-icon class="logo">apps</mat-icon>
     </button>
     <button mat-button class="center-button" routerLink="/products">
       <span class="text-nav-bar">View Products</span>
       <mat-icon class="icon-nav-bar">inbox</mat-icon>
     </button>
-    <button mat-button class="center-button" routerLink="/user-dashboard">
-      <mat-icon class="icon-nav-bar">settings</mat-icon>
-      <span class="text-nav-bar">Settings</span>
+    <button mat-button class="center-button" routerLink="/deals" >
+      <span class="text-nav-bar">Deals</span>
+      <mat-icon class="icon-nav-bar">local_offer</mat-icon>
     </button>
     <button mat-icon-button [matMenuTriggerFor]="menu" class="button-nav-bar">
       <mat-icon class="icon-nav-bar">more_vert</mat-icon>
@@ -28,6 +37,10 @@
       <button mat-menu-item (click)="logout()" title="Log Out" aria-label="Log Out">
         <mat-icon>exit_to_app</mat-icon>
         <span>Log Out</span>
+      </button>
+      <button  mat-menu-item routerLink="/user-dashboard">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
       </button>
     </mat-menu>
   </mat-toolbar>

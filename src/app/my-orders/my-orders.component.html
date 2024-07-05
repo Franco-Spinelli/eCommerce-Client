@@ -23,6 +23,9 @@
         </div>
       </li>
     </ul>
+    <div *ngIf="order.hasDelivery" class="order-delivery-info">
+      <p>Delivery Address: {{ order.deliveryAddress.street }}, {{ order.deliveryAddress.number }}, {{ order.deliveryAddress.city }}</p>
+    </div>
     <span *ngIf="!order.hasDelivery" class="order-no-delivery">**No delivery**</span>
   </div>
 </div>
