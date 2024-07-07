@@ -11,12 +11,13 @@ import { RegisterRequest } from './registerRequest';
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   authStatus = this.loggedIn.asObservable();
-  currentLoginOn = new BehaviorSubject<boolean>(false);
-  currentUserData = new BehaviorSubject<string>('');
-
+  private currentLoginOn = new BehaviorSubject<boolean>(false);
+  private currentUserData = new BehaviorSubject<string>('');
+  private currentUserRole = new BehaviorSubject<string>('');
   constructor(private http: HttpClient) {
     this.currentLoginOn.next(sessionStorage.getItem('token') !== null);
     this.currentUserData.next(sessionStorage.getItem('token') || '');
+    this.currentUserRole.next(sessionStorage.getItem('role') || '');
     this.loggedIn.next(this.currentLoginOn.value);
   }
 
@@ -24,7 +25,9 @@ export class AuthService {
     return this.http.post<any>(environment.urlHost + 'auth/login', credentials).pipe(
       tap((userData) => {
         sessionStorage.setItem('token', userData.token);
+        sessionStorage.setItem('role', userData.role);
         this.currentUserData.next(userData.token);
+        this.currentUserRole.next(userData.role);
         this.currentLoginOn.next(true);
         this.loggedIn.next(true);
       }),
@@ -36,8 +39,9 @@ export class AuthService {
   register(credentials: RegisterRequest): Observable<any> {
     return this.http.post<any>(environment.urlHost + 'auth/signup', credentials).pipe(
       tap((userData) => {
-        sessionStorage.setItem('token', userData.token);
+        sessionStorage.setItem('role', userData.role);
         this.currentUserData.next(userData.token);
+        this.currentUserRole.next(userData.role);
         this.currentLoginOn.next(true);
         this.loggedIn.next(true);
       }),
@@ -48,6 +52,9 @@ export class AuthService {
 
   logOut(): void {
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('role');
+    this.currentUserData.next('');
+    this.currentUserRole.next('');
     this.currentLoginOn.next(false);
     this.loggedIn.next(false);
   }
@@ -75,5 +82,12 @@ export class AuthService {
 
   public isUserLoggedIn(): boolean {
     return !!this.userToken;
+  }
+  public isAdmin(): boolean {
+    return this.currentUserRole.value === 'ROLE_ADMIN';
+  }
+
+  public isCustomer(): boolean {
+    return this.currentUserRole.value === 'ROLE_CUSTOMER';
   }
 }

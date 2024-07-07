@@ -23,7 +23,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   cart: Cart;
   ordersCount: number;
-
+  ordersCountAdmin:number;
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -109,6 +109,9 @@ export class NavBarComponent implements OnInit, OnDestroy {
     this.orderService.getOrders().subscribe((data) => {
       this.ordersCount = data.length;
     });
+    this.orderService.getAllOrders().subscribe((data)=>{
+      this.ordersCountAdmin = data.length;
+    })
   }
 
   private updateCart(): void {
@@ -124,5 +127,11 @@ export class NavBarComponent implements OnInit, OnDestroy {
         console.error('Error fetching cart:', error);
       }
     );
+  }
+  isCustomerlogin(): boolean{
+    return this.authService.isCustomer();
+  }
+  isAdminlogin(): boolean{
+    return this.authService.isAdmin();
   }
 }

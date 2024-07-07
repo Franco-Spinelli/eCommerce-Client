@@ -17,9 +17,11 @@ export class OrderService {
     return this.http.post<string>(environment.urlApi + "/order/create", hasDeliveryRequest);
   }
   getOrders(): Observable<Order[]>{
-    return this.http.get<Order[]>(environment.urlApi + "/order/get-all");
+    return this.http.get<Order[]>(environment.urlApi + "/order/get-all-user");
   }
- 
+  getAllOrders(): Observable<Order[]>{
+    return this.http.get<Order[]>(environment.urlApi + "/order/admin/get-all-admin");
+  }
   setSelectedAddress(address: Address) {
     this.selectedAddress = address;
   }

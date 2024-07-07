@@ -44,7 +44,6 @@
       </form>
       </div>
     </div>
- 
   </div>
   <div class="order-summary">
     <h2 class="section-title">Order Summary</h2>
@@ -60,11 +59,11 @@
       <div class="separator"></div>
       <div class="summary-item total" *ngIf="!orderForm.get('hasDelivery')?.value">
         <span>Total</span>
-        <span>${{ cart.totalPrice  | currency }}</span>
+        <span>{{ cart.totalPrice  | currency }}</span>
       </div>
       <div class="summary-item total" *ngIf="orderForm.get('hasDelivery')?.value">
         <span>Total</span>
-        <span>${{ cart.totalPrice + shippingCost | currency }}</span>
+        <span>{{ cart.totalPrice + shippingCost | currency }}</span>
       </div>
     </div>
     <div class="submit-button">
