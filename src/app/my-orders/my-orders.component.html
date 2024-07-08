@@ -27,5 +27,11 @@
       <p>Delivery Address: {{ order.deliveryAddress.street }}, {{ order.deliveryAddress.number }}, {{ order.deliveryAddress.city }}</p>
     </div>
     <span *ngIf="!order.hasDelivery" class="order-no-delivery">**No delivery**</span>
+    <div class="order-status">
+      <div class="progress-bar">
+        <div class="progress" [style.width]="getProgressBarWidth(order.status)"></div>
+      </div>
+      <p class="order-status-text">{{ getOrderStatusText(order.status) }}</p>
+    </div>
   </div>
 </div>

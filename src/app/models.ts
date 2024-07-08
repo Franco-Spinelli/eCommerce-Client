@@ -50,6 +50,14 @@ export interface Rating {
     product: Product;
     totalPrice: number;
   }
+  export enum OrderStatus {
+    PENDING = 'PENDING',
+    PROCESSING = 'PROCESSING',
+    SHIPPED = 'SHIPPED',
+    DELIVERED = 'DELIVERED',
+    CANCELLED = 'CANCELLED',
+    RETURNED = 'RETURNED'
+  }
   export interface Order {
     id: number;
     code:string;
@@ -60,4 +68,5 @@ export interface Rating {
     totalPrice: number;
     orderItems: Set<OrderItem>;
     customer: string;
+    status: OrderStatus;
   }

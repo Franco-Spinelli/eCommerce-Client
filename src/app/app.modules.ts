@@ -34,6 +34,7 @@ import { OrderComponent } from './order/order.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { MatCardModule } from '@angular/material/card';
 import { DealsComponent } from './deals/deals.component';
+import { OrdersDashboardComponent } from './orders-dashboard/orders-dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +49,8 @@ import { DealsComponent } from './deals/deals.component';
     AddressFormComponent,
     OrderComponent,
     MyOrdersComponent,
-    DealsComponent
+    DealsComponent,
+    OrdersDashboardComponent
   ],
   imports: [
     BrowserModule,

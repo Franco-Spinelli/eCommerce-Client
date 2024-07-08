@@ -104,7 +104,7 @@
     </mat-menu>
   </mat-toolbar>
   <mat-toolbar class="nav-bar-second">
-    <button mat-button class="address-button">
+    <button mat-button class="button-nav-bar">
       <mat-icon class="icon-nav-bar-second">add_circle</mat-icon>
       <span class="text-nav-bar-second">Post a New Product</span>
     </button>
@@ -112,7 +112,7 @@
       <span class="text-nav-bar-second">Management My Products</span>
       <mat-icon class="icon-nav-bar-second">inventory</mat-icon>
     </button>
-    <button mat-button  class="button-nav-bar" routerLink="/my-orders" >
+    <button mat-button  class="button-nav-bar" routerLink="/order-dashboard" >
       <span class="text-nav-bar-second">My Orders</span>
       <mat-icon class="icon-nav-bar-second">receipt</mat-icon>
       <span class="cart-item-count" *ngIf="ordersCountAdmin > 0">{{ordersCountAdmin}}</span>

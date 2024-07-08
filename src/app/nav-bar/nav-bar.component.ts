@@ -63,11 +63,13 @@ export class NavBarComponent implements OnInit, OnDestroy {
   }
 
   getAddresses() {
-    this.userService.getAllAddresses().subscribe((data) => {
+    if(this.isCustomerlogin()){    
+      this.userService.getAllAddresses().subscribe((data) => {
       this.addresses = data;
       console.log(data);
       this.restoreSelectedAddress();
     });
+  }
   }
 
   selectAddress(address: any) {
@@ -96,22 +98,28 @@ export class NavBarComponent implements OnInit, OnDestroy {
   }
 
   getItemCount() {
-    this.subscription = this.cartService.getCartUpdateObservable().subscribe(
-      () => {
-        console.log('Cart update triggered');
-        this.updateCart();
-      },
-      (error) => {
-        console.error('Error in cart update observable:', error);
-      }
-    );
-    this.updateCart();
-    this.orderService.getOrders().subscribe((data) => {
-      this.ordersCount = data.length;
-    });
-    this.orderService.getAllOrders().subscribe((data)=>{
-      this.ordersCountAdmin = data.length;
-    })
+    if(this.isCustomerlogin()){
+      this.subscription = this.cartService.getCartUpdateObservable().subscribe(
+        () => {
+          console.log('Cart update triggered');
+          this.updateCart();
+        },
+        (error) => {
+          console.error('Error in cart update observable:', error);
+        }
+      );
+      this.updateCart();
+      this.orderService.getOrders().subscribe((data) => {
+        this.ordersCount = data.length;
+      });
+    }
+    if(this.isAdminlogin()){
+      this.orderService.getAllOrders().subscribe((data)=>{
+        this.ordersCountAdmin = data.length;
+        console.log(data);
+        
+      })
+    }
   }
 
   private updateCart(): void {
