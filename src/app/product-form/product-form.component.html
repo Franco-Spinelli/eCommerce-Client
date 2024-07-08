@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="form-card">
+      <div class="card-header">
+        <h3>New Product</h3>
+        <p>Complete product details</p>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="productForm" class="form-grid">
+          <div class="form-group">
+            <label for="title">Name</label>
+            <input
+              id="title"
+              placeholder="Enter product name"
+              type="text"
+              formControlName="title"
+            />
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              id="description"
+              placeholder="Describe the product"
+              formControlName="description"
+            ></textarea>
+          </div>
+          <div class="form-row">
+       
+            <div class="form-group">
+              <label for="price">Price</label>
+              <input
+                id="price"
+                placeholder="Enter price"
+                type="number"
+                formControlName="price"
+              />
+            </div>
+            <div class="form-group">
+                <label for="stock">Stock</label>
+                <input
+                  id="stock"
+                  placeholder="Enter stock"
+                  type="number"
+                  formControlName="stock"
+                />
+              </div>
+          </div>
+          <div class="form-group">
+            <label>Choose a category</label>
+            <mat-select formControlName="category" placeholder="Select a category" class="category-select">
+              <mat-option value="newCategory" style="font-weight: bold;"> + Add a new category</mat-option>
+              <mat-option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</mat-option>
+            </mat-select>
+          </div>
+          <form [formGroup]="categoryForm" class="form-grid">
+            <div class="form-group" *ngIf="productForm.get('category')?.value === 'newCategory'">
+                <label>New Category</label>
+                <input formControlName="newCategoryValue"placeholder="Enter new category" type="text">
+              </div>
+          </form>
+      
+          <div class="form-group">
+            <label for="image">Image</label>
+            <input id="image" type="file" (change)="onFileChange($event)" formControlName="image"/>
+          </div>
+          <button type="submit" (click)="onSubmit()">
+            Publish Product
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="preview-card">
+      <div class="card-header">
+        <h3>Preview</h3>
+        <p>How your product will look</p>
+      </div>
+      <div class="card-body">
+        <div class="preview-content">
+          <img
+            [src]="imagePreview"
+            alt="Product Image"
+          />
+          <div class="preview-text">
+            <h3>{{ productForm.value.title || 'Product Name' }} - ${{ productForm.value.price || '0.00' }}</h3>
+            <p>{{ productForm.value.description || 'Product Description' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

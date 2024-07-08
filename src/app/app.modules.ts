@@ -35,6 +35,7 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { MatCardModule } from '@angular/material/card';
 import { DealsComponent } from './deals/deals.component';
 import { OrdersDashboardComponent } from './orders-dashboard/orders-dashboard.component';
+import { ProductFormComponent } from './product-form/product-form.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +51,8 @@ import { OrdersDashboardComponent } from './orders-dashboard/orders-dashboard.co
     OrderComponent,
     MyOrdersComponent,
     DealsComponent,
-    OrdersDashboardComponent
+    OrdersDashboardComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
