@@ -1,0 +1,162 @@
+<div class="container">
+    <form class="search-form">
+        <input type="text" name="search" [(ngModel)]="searchTerm" (ngModelChange)="searchProducts()" placeholder="Search products">
+    
+        <div class="filter-container">
+          <mat-slider class="rating-slider" min="0" max="5" step="0.5" showTickMarks discrete [displayWith]="formatLabel" (input)="advancedSearch()">
+            <input matSliderThumb name="rating" [(ngModel)]="selectedRating">
+          </mat-slider>
+          <p class="slider-label">Max rating: {{ selectedRating }}</p>
+          <mat-form-field class="category-field">
+            <mat-label>Choose a category</mat-label>
+            <mat-select name="category" [(ngModel)]="selectedCategory" (ngModelChange)="advancedSearch()">
+              <mat-option value="">All categories</mat-option>
+              <mat-option value="{{category.name}}" *ngFor="let category of categories">{{ category.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <input type="number" name="minPrice" [(ngModel)]="minPrice" (ngModelChange)="advancedSearch()" placeholder="Min price" class="price-input">
+          <input type="number" name="maxPrice" [(ngModel)]="maxPrice" (ngModelChange)="advancedSearch()" placeholder="Max price" class="price-input">
+    
+        
+          <mat-form-field class="sort-field">
+            <mat-label>Sort by price</mat-label>
+            <mat-select name="sort" [(ngModel)]="sortOrder" (ngModelChange)="advancedSearch()">
+              <mat-option value="asc">Lowest price first</mat-option>
+              <mat-option value="desc">Highest price first</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+    
+      </form>
+    <div class="product-list"  *ngIf="paginatedProducts.length > 0; else noProducts">
+        <div class="product-row">
+            <div class="product-col product-col-header">ID</div>
+            <div class="product-col product-col-header">TITLE</div>
+            <div class="product-col product-col-header">PRICE</div>
+            <div class="product-col product-col-header">CATEGORY</div>
+            <div class="product-col product-col-header">STOCK</div>
+            <div class="product-col product-col-header  product-col-header-actions">ACTIONS</div>
+        </div>
+        <div *ngFor="let product of paginatedProducts" class="product-row">
+        <div class="product-col">
+            {{ product.id }}
+        </div>
+        <div class="product-col">
+            {{ product.title }}
+        </div>
+        <div class="product-col">
+            {{ product.price }}
+        </div>
+        <div class="product-col">
+            {{ product.category }}
+        </div>
+        <div class="product-col">
+            {{ product.stock}}
+        </div>
+        <div class="product-col product-col-header-actions">
+          <button mat-icon-button [matMenuTriggerFor]="menu" class="button-nav-bar">
+            <mat-icon class="icon-nav-bar">more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button  mat-menu-item (click)="deleteProduct(product)">
+              <mat-icon>delete</mat-icon>
+              <span>Delete product</span>
+            </button>
+            <button mat-menu-item (click)="openModal(product)" title="Log Out" aria-label="Log Out">
+              <mat-icon>edit</mat-icon>
+              <span>Edit product</span>
+            </button>
+          </mat-menu>
+        </div>
+        </div>
+        <div class="pagination">
+        <button (click)="previousPage()">Previous</button>
+        <span>{{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="nextPage()">Next</button>
+        </div>
+    </div>
+    <ng-template #noProducts>
+        <div class="no-products">
+          No products found.
+        </div>
+      </ng-template>
+      <div class="modal" [class.active]="selectedProduct">
+        <div class="modal-content">
+            <button class="close-modal" (click)="closeModal()">
+                <mat-icon class="mat-icon-button">close</mat-icon>
+            </button>
+           
+            <div class="form-card">
+                <div class="card-header">
+                  <h3>Update Product</h3>
+                  <p>Complete product details</p>
+                </div>
+                <div class="card-body">
+                  <form [formGroup]="productForm" class="form-grid">
+                    <div class="form-group">
+                      <label for="title">Name</label>
+                      <input
+                        id="title"
+                        placeholder="Enter product name"
+                        type="text"
+                        formControlName="title"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="description">Description</label>
+                      <textarea
+                        id="description"
+                        placeholder="Describe the product"
+                        formControlName="description"
+                      ></textarea>
+                    </div>
+                    <div class="form-row">
+                 
+                      <div class="form-group">
+                        <label for="price">Price</label>
+                        <input
+                          id="price"
+                          placeholder="Enter price"
+                          type="number"
+                          formControlName="price"
+                        />
+                      </div>
+                      <div class="form-group">
+                          <label for="stock">Stock</label>
+                          <input
+                            id="stock"
+                            placeholder="Enter stock"
+                            type="number"
+                            formControlName="stock"
+                          />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Choose a category</label>
+                      <mat-select formControlName="category" placeholder="Select a category" class="category-select">
+                        <mat-option value="newCategory" style="font-weight: bold;"> + Add a new category</mat-option>
+                        <mat-option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</mat-option>
+                      </mat-select>
+                    </div>
+                    <form [formGroup]="categoryForm" class="form-grid">
+                      <div class="form-group" *ngIf="productForm.get('category')?.value === 'newCategory'">
+                          <label>New Category</label>
+                          <input formControlName="newCategoryValue"placeholder="Enter new category" type="text">
+                        </div>
+                    </form>
+                
+                    <div class="form-group">
+                      <label for="image">Image</label>
+                      <input id="image" type="text"  formControlName="image"/>
+                    </div>
+                    <button type="submit" class="modern-button" (click)="update()">
+                      Publish Product
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+        </div>
+    </div>
+</div>
+

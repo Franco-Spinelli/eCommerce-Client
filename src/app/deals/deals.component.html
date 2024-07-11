@@ -1,0 +1,146 @@
+<div class="container">
+  <div class="best-deals">
+    <h2>Best Deals</h2>
+    <div class="deal-list">
+      <div *ngFor="let deal of bestDeals" class="deal-item" (click)="showProductDetails(deal)">
+        <div class="deal-image" [style.backgroundImage]="'url(' + deal.image + ')'" ></div>
+        <div class="deal-details">
+          <h3 class="deal-title">{{ deal.title }}</h3>
+          <p class="deal-price">
+            <span class="price-label">Price:</span>
+            <span class="price-amount" [ngClass]="{'discounted': deal.discount > 0}">
+              ${{ deal.discount > 0? deal.discountPrice : deal.price | number: '1.2-2' }}
+            </span>
+            <i class="fas fa-dollar-sign"></i>
+            <span class="old-price" *ngIf="deal.discount > 0">
+              <s>{{ deal.price }}</s>
+            </span>
+            <span class="discount" *ngIf="deal.discount > 0">
+              ({{ deal.discount }}% off)
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+    <form class="search-form">
+      <input type="text" name="search" [(ngModel)]="searchTerm" (ngModelChange)="searchProducts()" placeholder="Search products">
+  
+      <div class="filter-container">
+        <mat-slider class="rating-slider" min="0" max="5" step="0.5" showTickMarks discrete [displayWith]="formatLabel" (input)="advancedSearch()">
+          <input matSliderThumb name="rating" [(ngModel)]="selectedRating">
+        </mat-slider>
+        <p class="slider-label">Max rating: {{ selectedRating }}</p>
+        <mat-form-field class="category-field">
+          <mat-label>Choose a category</mat-label>
+          <mat-select name="category" [(ngModel)]="selectedCategory" (ngModelChange)="advancedSearch()">
+            <mat-option value="">All categories</mat-option>
+            <mat-option value="{{category.name}}" *ngFor="let category of categories">{{ category.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <input type="number" name="minPrice" [(ngModel)]="minPrice" (ngModelChange)="advancedSearch()" placeholder="Min price" class="price-input">
+        <input type="number" name="maxPrice" [(ngModel)]="maxPrice" (ngModelChange)="advancedSearch()" placeholder="Max price" class="price-input">
+  
+      
+        <mat-form-field class="sort-field">
+          <mat-label>Sort by price</mat-label>
+          <mat-select name="sort" [(ngModel)]="sortOrder" (ngModelChange)="advancedSearch()">
+            <mat-option value="asc">Lowest price first</mat-option>
+            <mat-option value="desc">Highest price first</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+    </form>
+  
+    <div class="product-list" *ngIf="paginatedProducts.length > 0; else noProducts">
+      <div *ngFor="let product of paginatedProducts" class="product-item" (click)="showProductDetails(product)">
+        <div class="product-image" [style.backgroundImage]="'url(' + product.image + ')'" ></div>
+        <div class="product-details">
+          <h3 class="product-title">{{ product.title }}</h3>
+          <p class="product-price">
+            <span class="price-label">Price:</span>
+            <span class="price-amount" [ngClass]="{'discounted': product.discount > 0}">
+              ${{ product.discount > 0 ? product.discountPrice : product.price | number: '1.2-2' }}
+            </span>
+            <i class="fas fa-dollar-sign"></i>
+            <span class="old-price" *ngIf="product.discount > 0">
+              <s>{{ product.price }}</s>
+            </span>
+            <span class="discount" *ngIf="product.discount > 0">
+              ({{ product.discount }}% off)
+            </span>
+          </p>
+          <p class="product-description">{{ product.description | slice:0:100 }} {{ product.description.length > 100? '...' : '' }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <div class="pagination">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+      <span>{{ currentPage }} of {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+  
+    <ng-template #noProducts>
+      <div class="no-products">
+        No products found.
+      </div>
+    </ng-template>
+  
+    <div class="modal" [class.active]="selectedProduct">
+      <div class="modal-content">
+        <button class="close-modal" (click)="hideProductDetails()">
+          <mat-icon class="mat-icon-button">close</mat-icon>
+        </button>
+        <div class="modal-body">
+          <div class="product-image-container">
+            <img [src]="selectedProduct?.image" alt="Product image: selectedProduct.image" class="product-image-full">
+          </div>
+          <div class="product-details-container">
+            <h2>{{ selectedProduct?.title }}</h2>
+            <p>{{ selectedProduct?.description }}</p>
+            <p>
+              Price: 
+              <span class="price-amount" [ngClass]="{'discounted': selectedProduct?.discount > 0}">
+                ${{ selectedProduct?.discount > 0 ? selectedProduct?.discountPrice : selectedProduct?.price | number: '1.2-2' }}
+              </span>
+              <i class="fas fa-dollar-sign"></i>
+              <span class="old-price" *ngIf="selectedProduct?.discount > 0">
+                <s>{{ selectedProduct?.price | number: '1.2-2' }}</s>
+              </span>
+              <span class="discount" *ngIf="selectedProduct?.discount > 0">
+                ({{ selectedProduct?.discount }}% off)
+              </span>
+            </p>
+            <p>
+              Rating: 
+              <span class="stars">
+                <ng-container *ngFor="let star of getStarsArray(selectedProduct?.rating?.rate)">
+                  <mat-icon class="star-icon" *ngIf="star === 1">star</mat-icon>
+                  <mat-icon class="star-icon" *ngIf="star === 0.5">star_half</mat-icon>
+                  <mat-icon class="star-icon" *ngIf="star === 0">star_outline</mat-icon>
+                </ng-container>
+              </span>
+              ({{ selectedProduct?.rating?.count }} reviews)
+            </p>
+            <div class="quantity-container">
+              <label for="quantity">Quantity:</label>
+              <div class="select-container">
+                <select [(ngModel)]="quantity" id="quantity">
+                  <option *ngFor="let i of getQuantityOptions()" [value]="i">{{ i }}</option>
+                </select>
+                <span class="quantity-message">{{ getQuantityMessage() }}</span>
+              </div>
+              
+            </div>
+            <button mat-button class="add-to-cart-btn" (click)="addToCart(selectedProduct,quantity)">
+              <mat-icon class="mat-icon-button">shopping_cart</mat-icon>
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

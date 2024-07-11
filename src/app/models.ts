@@ -7,6 +7,8 @@ export interface Rating {
     id: number;
     title: string;
     price: number;
+    discount:number;
+    discountPrice:number;
     description: string;
     rating: Rating;
     image: string;
@@ -41,4 +43,30 @@ export interface Rating {
     cartItems: Set<CartItem>;
     totalItems: number;
     totalPrice: number;
+  }
+  export interface OrderItem {
+    id: number;
+    quantity: number;
+    product: Product;
+    totalPrice: number;
+  }
+  export enum OrderStatus {
+    PENDING = 'PENDING',
+    PROCESSING = 'PROCESSING',
+    SHIPPED = 'SHIPPED',
+    DELIVERED = 'DELIVERED',
+    CANCELLED = 'CANCELLED',
+    RETURNED = 'RETURNED'
+  }
+  export interface Order {
+    id: number;
+    code:string;
+    hasDelivery: boolean;
+    deliveryAddress: Address;
+    date: Date;
+    totalItems: number;
+    totalPrice: number;
+    orderItems: Set<OrderItem>;
+    customer: string;
+    status: OrderStatus;
   }

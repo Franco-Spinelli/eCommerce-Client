@@ -1,0 +1,100 @@
+<div class="container">
+    <div class="search-bar">
+        <input type="text" [(ngModel)]="searchTerm" placeholder="Search by ID, Code or Customer" (input)="searchOrders()">
+    </div>
+    <div class="order-list">
+        <div class="order-row">
+            <div class="order-col order-col-header">ID</div>
+            <div class="order-col order-col-header">CODE</div>
+            <div class="order-col order-col-header">DATE</div>
+            <div class="order-col order-col-header">CUSTOMER</div>
+            <div class="order-col order-col-header">STATUS</div>
+            <div class="order-col order-col-header  order-col-header-total">TOTAL</div>
+            <div class="order-col order-col-header  order-col-header-actions">ACTIONS</div>
+        </div>
+        <div *ngFor="let order of filteredOrders | slice: (currentPage - 1) * pageSize : currentPage * pageSize" class="order-row" (click)="openModal(order)">
+        <div class="order-col">
+            {{ order.id }}
+        </div>
+        <div class="order-col">
+            {{ order.code }}
+        </div>
+        <div class="order-col">
+            {{ order.date | date: 'MM/dd' }}
+        </div>
+        <div class="order-col">
+            {{ order.customer }}
+        </div>
+        <div class="order-col">
+            {{ getOrderStatusText(order.status) }}
+        </div>
+        <div class="order-col order-col-header-total">
+            ${{ order.totalPrice}}
+        </div>
+        <div class="order-col order-col-header-actions">
+            <button class="detail-button" (click)="openModal(order)">View details</button>
+        </div>
+        </div>
+        <div class="pagination">
+        <button (click)="previousPage()">Previous</button>
+        <span>{{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="nextPage()">Next</button>
+        </div>
+    </div>
+</div>
+<div class="modal" [class.active]="selectedOrder">
+    <div class="modal-content">
+        <button class="close-modal" (click)="closeModal()">
+            <mat-icon class="mat-icon-button">close</mat-icon>
+        </button>
+        <ng-container *ngIf="selectedOrder">
+            <header class="order-header">
+                <h2 class="order-title">Order {{ selectedOrder.id }}</h2>
+                <div class="order-meta">
+                    <p class="order-customer">Customer: {{ selectedOrder.customer }}</p>
+                    <p class="order-date">Date: {{ selectedOrder.date | date:'medium' }}</p>
+                    <p class="order-code">Code: {{ selectedOrder.code }}</p>
+                </div>
+            </header>
+            <div class="order-summary">
+                <p class="order-total">Total: {{ selectedOrder.totalPrice | currency }}</p>
+                <p class="order-delivery">Delivery: {{ selectedOrder.hasDelivery? 'Yes' : 'No' }}</p>
+            </div>
+            <ul class="order-items">
+                <li *ngFor="let item of selectedOrder.orderItems" class="order-item">
+                    <img [src]="item.product.image" alt="{{ item.product.title }}" class="order-item-image">
+                    <div class="order-item-info">
+                        <h3 class="order-item-name">{{ item.product.title }}</h3>
+                        <p class="order-item-quantity">Quantity: {{ item.quantity }}</p>
+                        <p class="order-item-price">Unit Price: {{ item.product.price | currency }}</p>
+                        <p class="order-item-total">Subtotal: {{ item.totalPrice | currency }}</p>
+                    </div>
+                </li>
+            </ul>
+            <div *ngIf="selectedOrder.hasDelivery" class="order-delivery-info">
+                <p>Delivery Address: {{ selectedOrder.deliveryAddress.street }}, {{ selectedOrder.deliveryAddress.number }}, {{ selectedOrder.deliveryAddress.city }}</p>
+            </div>
+            <span *ngIf="!selectedOrder.hasDelivery" class="order-no-delivery">**No delivery**</span>
+            <div class="order-actions">
+                <div class="order-status">
+                    <p class="order-status-text">{{ getOrderStatusText(selectedOrder.status) }}</p>
+                    <div class="progress-bar">
+                        <div class="progress" [style.width]="getProgressBarWidth(selectedOrder.status)"></div>
+                    </div>
+                </div>
+                <div>
+                    <mat-form-field>
+                        <mat-select [(ngModel)]="selectedOrder.status" (selectionChange)="updateOrderStatus(selectedOrder)">
+                            <mat-option value="PENDING">Pending</mat-option>
+                            <mat-option value="PROCESSING">Processing</mat-option>
+                            <mat-option value="SHIPPED">Shipped</mat-option>
+                            <mat-option value="DELIVERED">Delivered</mat-option>
+                            <mat-option value="CANCELLED">Cancelled</mat-option>
+                            <mat-option value="RETURNED">Returned</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

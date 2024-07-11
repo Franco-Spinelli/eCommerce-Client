@@ -17,7 +17,6 @@ export class CartComponent implements OnInit, OnDestroy{
    }
 
    ngOnInit(): void {
-    console.log('Initializing cart component');
     this.subscription = this.cartService.getCartUpdateObservable().subscribe(
       () => {
         console.log('Cart update triggered');

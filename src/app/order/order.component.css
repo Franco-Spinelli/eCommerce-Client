@@ -150,3 +150,19 @@
   .checkbox:checked:hover {
     border-color: #337ab7;
   }
+
+  .remove-item {
+    background-color: transparent;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .remove-item:hover {
+    background-color: #F7F7F7; 
+  }
+  
+  .remove-item mat-icon {
+    font-size: 18px;
+    color: #666666; 
+  }

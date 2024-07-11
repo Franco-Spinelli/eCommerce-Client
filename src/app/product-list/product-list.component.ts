@@ -28,7 +28,6 @@ export class ProductListComponent implements OnInit {
   productsPerPage = 12;
   //stock
   quantity: number = 1;
-  quantityMessage: string;
   maxQuantitytoBuy: number;
   constructor(private productService: ProductService, private cartService:CartService, private authService: AuthService, private router: Router) { }
   ngOnInit(): void {
@@ -120,10 +119,13 @@ export class ProductListComponent implements OnInit {
     });
     if (this.sortOrder) {
       this.filteredProducts = this.filteredProducts.sort((a, b) => {
+        const finalPriceA = a.price - (a.price * (a.discount / 100));
+        const finalPriceB = b.price - (b.price * (b.discount / 100));
+      
         if (this.sortOrder === 'asc') {
-          return a.price - b.price;
+          return finalPriceA - finalPriceB;
         } else {
-          return b.price - a.price;
+          return finalPriceB - finalPriceA;
         }
       });
     }

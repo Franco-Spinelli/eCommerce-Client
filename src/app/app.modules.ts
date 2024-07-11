@@ -31,6 +31,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AddressFormComponent } from './address-form/address-form.component';
 import { OrderComponent } from './order/order.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { MatCardModule } from '@angular/material/card';
+import { DealsComponent } from './deals/deals.component';
+import { OrdersDashboardComponent } from './orders-dashboard/orders-dashboard.component';
+import { ProductFormComponent } from './product-form/product-form.component';
+import { ProductManagementComponent } from './product-management/product-management.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +49,12 @@ import { OrderComponent } from './order/order.component';
     CartItemComponent,
     UserDashboardComponent,
     AddressFormComponent,
-    OrderComponent
+    OrderComponent,
+    MyOrdersComponent,
+    DealsComponent,
+    OrdersDashboardComponent,
+    ProductFormComponent,
+    ProductManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +75,8 @@ import { OrderComponent } from './order/order.component';
     MatSliderModule,
     MatTooltipModule,
     MatSnackBarModule,
+    MatCardModule,
+    MatListModule, 
   ],
   exports: [ MatTooltipModule,
     MatSnackBarModule],
