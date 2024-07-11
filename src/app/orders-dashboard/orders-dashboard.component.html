@@ -5,12 +5,12 @@
     <div class="order-list">
         <div class="order-row">
             <div class="order-col order-col-header">ID</div>
-            <div class="order-col order-col-header">Code</div>
-            <div class="order-col order-col-header">Date</div>
-            <div class="order-col order-col-header">Customer</div>
-            <div class="order-col order-col-header">Status</div>
-            <div class="order-col order-col-header  order-col-header-total">Total</div>
-            <div class="order-col order-col-header  order-col-header-actions">Actions</div>
+            <div class="order-col order-col-header">CODE</div>
+            <div class="order-col order-col-header">DATE</div>
+            <div class="order-col order-col-header">CUSTOMER</div>
+            <div class="order-col order-col-header">STATUS</div>
+            <div class="order-col order-col-header  order-col-header-total">TOTAL</div>
+            <div class="order-col order-col-header  order-col-header-actions">ACTIONS</div>
         </div>
         <div *ngFor="let order of filteredOrders | slice: (currentPage - 1) * pageSize : currentPage * pageSize" class="order-row" (click)="openModal(order)">
         <div class="order-col">

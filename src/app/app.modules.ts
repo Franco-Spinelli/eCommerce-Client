@@ -36,6 +36,7 @@ import { MatCardModule } from '@angular/material/card';
 import { DealsComponent } from './deals/deals.component';
 import { OrdersDashboardComponent } from './orders-dashboard/orders-dashboard.component';
 import { ProductFormComponent } from './product-form/product-form.component';
+import { ProductManagementComponent } from './product-management/product-management.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +53,8 @@ import { ProductFormComponent } from './product-form/product-form.component';
     MyOrdersComponent,
     DealsComponent,
     OrdersDashboardComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductManagementComponent
   ],
   imports: [
     BrowserModule,

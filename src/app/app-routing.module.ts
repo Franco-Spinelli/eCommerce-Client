@@ -12,6 +12,7 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { DealsComponent } from './deals/deals.component';
 import { OrdersDashboardComponent } from './orders-dashboard/orders-dashboard.component';
 import { ProductFormComponent } from './product-form/product-form.component';
+import { ProductManagementComponent } from './product-management/product-management.component';
 
 
 const routes: Routes = [
@@ -25,7 +26,8 @@ const routes: Routes = [
   {path:'user-dashboard', component: UserDashboardComponent, canActivate: [AuthGuard]},
   {path:'deals', component: DealsComponent},
   {path:'order-dashboard', component: OrdersDashboardComponent, canActivate: [AuthGuard]},
-  {path:'post-product', component: ProductFormComponent, canActivate: [AuthGuard]}
+  {path:'post-product', component: ProductFormComponent, canActivate: [AuthGuard]},
+  {path:'management-product', component: ProductManagementComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

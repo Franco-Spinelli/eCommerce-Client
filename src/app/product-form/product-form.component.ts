@@ -26,7 +26,6 @@ export class ProductFormComponent implements OnInit{
       image:  ['',[Validators.required]],
       category:  ['',[Validators.required]],
       stock: ['',[Validators.required]],
-      newCategoryValue: ['',[Validators.required]]
     });
     this.categoryForm =  this.formBuilder.group({
       newCategoryValue: ['',[Validators.required]]
@@ -56,21 +55,21 @@ export class ProductFormComponent implements OnInit{
   }
   onSubmit() {
     if (this.productForm.get('category')?.value === 'newCategory' && this.categoryForm.get('newCategoryValue')?.value) {
-      // Asignar el valor de 'newCategoryValue' a 'category'
+      
       this.productForm.get('category')?.setValue(this.categoryForm.get('newCategoryValue')?.value);
     }
   
   
-    // Llamada al servicio para crear el producto
+   
     this.productService.createProduct(this.productForm.value)
       .subscribe(
         (response) => {
-          console.log('Producto creado:', response);
-          // Aquí puedes manejar la respuesta del servidor después de crear el producto
+          console.log(response);
+         
         },
         (error) => {
-          console.error('Error al crear producto:', error);
-          // Aquí puedes manejar errores en la creación del producto
+          console.error( error);
+         
         }
       );
   }
