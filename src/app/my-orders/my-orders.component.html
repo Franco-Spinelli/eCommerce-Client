@@ -1,37 +1,44 @@
 <div class="container">
-  <div *ngFor="let order of userOrders" class="order-card">
-    <header class="order-header">
-      <h2 class="order-title">Order {{ order.id }}</h2>
-      <div class="order-meta">
-        <p class="order-customer">Customer: {{ order.customer }}</p>
-        <p class="order-date">Date: {{ order.date | date:'medium' }}</p>
-        <p class="order-code">Code: {{ order.code }}</p>
-      </div>
-    </header>
-    <div class="order-summary">
-      <p class="order-total">Total: {{ order.totalPrice | currency }}</p>
-      <p class="order-delivery">Delivery: {{ order.hasDelivery? 'Yes' : 'No' }}</p>
-    </div>
-    <ul class="order-items">
-      <li *ngFor="let item of order.orderItems" class="order-item">
-        <img [src]="item.product.image" alt="{{ item.product.title }}" class="order-item-image">
-        <div class="order-item-info">
-          <h3 class="order-item-name">{{ item.product.title }}</h3>
-          <p class="order-item-quantity">Quantity: {{ item.quantity }}</p>
-          <p class="order-item-price">Unit Price: {{ item.product.price | currency }}</p>
-          <p class="order-item-total">Subtotal: {{ item.totalPrice | currency }}</p>
+  <span *ngIf="userOrders.length > 0; else noOrders"> 
+    <div *ngFor="let order of userOrders" class="order-card">
+      <header class="order-header">
+        <h2 class="order-title">Order {{ order.id }}</h2>
+        <div class="order-meta">
+          <p class="order-customer">Customer: {{ order.customer }}</p>
+          <p class="order-date">Date: {{ order.date | date:'medium' }}</p>
+          <p class="order-code">Code: {{ order.code }}</p>
         </div>
-      </li>
-    </ul>
-    <div *ngIf="order.hasDelivery" class="order-delivery-info">
-      <p>Delivery Address: {{ order.deliveryAddress.street }}, {{ order.deliveryAddress.number }}, {{ order.deliveryAddress.city }}</p>
-    </div>
-    <span *ngIf="!order.hasDelivery" class="order-no-delivery">**No delivery**</span>
-    <div class="order-status">
-      <div class="progress-bar">
-        <div class="progress" [style.width]="getProgressBarWidth(order.status)"></div>
+      </header>
+      <div class="order-summary">
+        <p class="order-total">Total: {{ order.totalPrice | currency }}</p>
+        <p class="order-delivery">Delivery: {{ order.hasDelivery? 'Yes' : 'No' }}</p>
       </div>
-      <p class="order-status-text">{{ getOrderStatusText(order.status) }}</p>
+      <ul class="order-items">
+        <li *ngFor="let item of order.orderItems" class="order-item">
+          <img [src]="item.product.image" alt="{{ item.product.title }}" class="order-item-image">
+          <div class="order-item-info">
+            <h3 class="order-item-name">{{ item.product.title }}</h3>
+            <p class="order-item-quantity">Quantity: {{ item.quantity }}</p>
+            <p class="order-item-price">Unit Price: {{ item.product.price | currency }}</p>
+            <p class="order-item-total">Subtotal: {{ item.totalPrice | currency }}</p>
+          </div>
+        </li>
+      </ul>
+      <div *ngIf="order.hasDelivery" class="order-delivery-info">
+        <p>Delivery Address: {{ order.deliveryAddress.street }}, {{ order.deliveryAddress.number }}, {{ order.deliveryAddress.city }}</p>
+      </div>
+      <span *ngIf="!order.hasDelivery" class="order-no-delivery">**No delivery**</span>
+      <div class="order-status">
+        <div class="progress-bar">
+          <div class="progress" [style.width]="getProgressBarWidth(order.status)"></div>
+        </div>
+        <p class="order-status-text">{{ getOrderStatusText(order.status) }}</p>
+      </div>
     </div>
-  </div>
+  </span>
+  <ng-template #noOrders>
+    <div class="no-orders">
+      No orders found.
+    </div>
+  </ng-template>
 </div>

@@ -176,13 +176,20 @@ export class ProductListComponent implements OnInit {
           this.quantity = 1;
         },
         (error) => {
-          console.error('Error adding product to cart:', error);
-          alert('Insufficient stock of the product');
+          if(this.isAdminlogin()){
+            alert('The admin cannot add products to the cart.');
+          }else{
+            console.error('Error adding product to cart:', error);
+            alert('Insufficient stock of the product');
+          }
           this.quantity = 1;
         }
       );
     } else {
       this.router.navigateByUrl('/login');
     }
+  }
+  isAdminlogin(): boolean{
+    return this.authService.isAdmin();
   }
 }

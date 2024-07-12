@@ -57,6 +57,7 @@
         <button mat-menu-item (click)="selectAddress(address)">
           {{ address.street }} {{ address.number }}, {{address.city}}
           <mat-icon [style.color]="'#4567b7'"  (click)="openEditAddressModal(address)"  matTooltip="Edit address">edit</mat-icon>
+          <mat-icon [style.color]="'#4567b7'"  (click)="deleteAddress(address)"  matTooltip="Delete address">delete</mat-icon>
         </button>
       </ng-container>
       <button class="add-address-btn" (click)="openAddressModal()">+ Add address</button>

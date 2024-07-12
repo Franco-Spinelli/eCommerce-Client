@@ -123,3 +123,9 @@
 .order-status{
   text-align: center;
 }
+.no-orders {
+  margin-top: 20px;
+  text-align: center;
+  color: #868686; 
+  font-weight: bold;
+}

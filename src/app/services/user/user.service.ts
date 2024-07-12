@@ -19,4 +19,7 @@ export class UserService {
   updateAddress(address: Address): Observable<Address>{
     return this.http.put<Address>(environment.urlApi + "/user/update-address", address);
   }
+  deleteAddress(address: Address): Observable<string>{
+    return this.http.delete<string>(`${environment.urlApi}/user/delete-address/${address.id}`);
+  }
 }
