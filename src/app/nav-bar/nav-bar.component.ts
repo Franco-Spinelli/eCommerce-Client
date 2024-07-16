@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit, OnDestroy {
+
   @ViewChild('cartModal') cartModal: CartComponent;
   @ViewChild('addressModal') addressModal: AddressFormComponent;
   isLoggedIn: boolean = false;
@@ -142,4 +143,11 @@ export class NavBarComponent implements OnInit, OnDestroy {
   isAdminlogin(): boolean{
     return this.authService.isAdmin();
   }
+  
+  deleteAddress(address: Address) {
+    this.userService.deleteAddress(address).subscribe((data)=>{
+      console.log(data);
+      
+    })
+    }
 }

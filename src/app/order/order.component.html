@@ -16,12 +16,11 @@
       </div>
     </div>
    
-    <div>
+    <div *ngIf="allAddress.length > 0 || selectedAddress!=null ; else noShipping">
       <h2 class="section-title">Shipping</h2>
       <div class="shipping-options">
         <form [formGroup]="orderForm">
         <div class="shipping-option">
-         
           <label>
             <input type="checkbox" formControlName="hasDelivery" class="checkbox">
             <span class="checkbox-label">Add shipping</span>
@@ -44,6 +43,11 @@
       </form>
       </div>
     </div>
+    <ng-template #noShipping>
+      <div class="no-address">
+        No address found. Please add a address.
+      </div>
+    </ng-template>
   </div>
   <div class="order-summary">
     <h2 class="section-title">Order Summary</h2>
