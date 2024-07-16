@@ -37,6 +37,7 @@ import { DealsComponent } from './deals/deals.component';
 import { OrdersDashboardComponent } from './orders-dashboard/orders-dashboard.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { ProductManagementComponent } from './product-management/product-management.component';
+import { FooterComponent } from './footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +55,8 @@ import { ProductManagementComponent } from './product-management/product-managem
     DealsComponent,
     OrdersDashboardComponent,
     ProductFormComponent,
-    ProductManagementComponent
+    ProductManagementComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

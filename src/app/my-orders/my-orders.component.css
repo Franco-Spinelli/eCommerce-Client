@@ -128,3 +128,9 @@
   color: #868686; 
   font-weight: bold;
 }
+@media (max-width: 430px) {
+  .order-card {
+    width: 90%;
+  }
+  
+}
