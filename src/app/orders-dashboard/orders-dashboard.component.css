@@ -314,6 +314,7 @@ mat-form-field {
   .container{
     align-items: center;
     text-align: center;
+    height: 100%;
   }
   @media (max-width: 868px) {
     .order-col-header-total{

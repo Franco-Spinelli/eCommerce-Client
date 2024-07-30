@@ -24,9 +24,7 @@ export class LoginComponent {
   }
   login() {
     this.authService.login(this.loginForm.value as LoginRequest).subscribe((data) => {
-      console.log(data);
-      this.router.navigateByUrl("/")
-      
+      this.router.navigateByUrl("/")  
     },
     (error) => {
       alert("Username or password incorrect")
