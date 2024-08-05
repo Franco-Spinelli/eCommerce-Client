@@ -1,15 +1,84 @@
-/* styles.css */
 
-.container {
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 1001;
+}
+
+
+.order-list {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
-  height: 100%;
+  margin: 20px;
 }
 
+.order-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  width: 80%;
+}
+
+.order-col {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  flex-basis: 20%;
+}
+
+.order-col-header{
+  color: #4567b7;
+  font-weight: bold;
+}
+.detail-button {
+  background-color: #4567b7;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.detail-button:hover {
+  background-color: #3c5899;
+}
+
+
+.order-row:hover {
+  background-color: #f5f5f5;
+} 
 .order-card {
-  width: 100%;
+  width: 80%;
+  max-width: 800px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 16px;
@@ -107,6 +176,7 @@
   margin-top: 16px;
   display: block;
 }
+
 .progress-bar {
   width: 100%;
   height: 20px;
@@ -117,21 +187,139 @@
 
 .progress {
   height: 100%;
-  background-color: #4567b7; 
+  background-color: #4567b7;
   transition: width 0.5s ease-in-out;
 }
-.order-status{
-  text-align: center;
+
+.order-status {
+
+  align-items: center;
+  margin-bottom: 20px;
 }
-.no-orders {
-  margin-top: 20px;
-  text-align: center;
-  color: #868686; 
+
+.order-status label {
   font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  margin-right: 10px;
 }
-@media (max-width: 430px) {
-  .order-card {
-    width: 90%;
+
+.order-actions {
+  text-align: center;
+
+}
+
+mat-form-field {
+  width: 80%;
+}
+
+.close-modal {
+  position: absolute; 
+  top: 10px; 
+  right: 10px; 
+  padding: 0; 
+  font-size: 16px;
+  background-color: transparent;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.close-modal .mat-icon {
+  font-size: 24px;
+  color: inherit;
+}
+
+.close-modal:hover {
+  color: #000;
+}
+
+.close-modal:hover .mat-icon {
+  color: #000;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+}
+
+.pagination button {
+  background-color: #4567b7;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.pagination button:hover {
+  background-color: #2e4e97;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.pagination button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.pagination span {
+  margin: 0 10px;
+  font-size: 16px;
+  color: #666;
+  font-weight: 500;
+}
+
+.pagination .current-page {
+  font-weight: bold;
+  color: #333;
+}
+
+.pagination .page-number {
+  margin: 0 5px;
+  font-size: 16px;
+  color: #666;
+  cursor: pointer;
+}
+
+.pagination .page-number:hover {
+  color: #333;
+}
+.search-bar input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  width: 60%;
+}
+
+input[type="text"] {
+  border: 2px solid #ccc; 
+  padding: 5px;
+  border-radius: 5px;
+  transition: border-color 0.3s;
+  text-align: center;
+}
+
+input[type="text"]:focus {
+  outline: none; 
+}
+.container{
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+
+
+@media (max-width: 588px) {
+   .order-col-header-actions {
+     display: none;
   }
-  
 }

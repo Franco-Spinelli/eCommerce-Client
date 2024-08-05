@@ -97,6 +97,19 @@ export class AddressFormComponent implements OnInit{
   openModal() {
     this.isOpen = true;
   }
+  openCreate() {
+    this.addressForm.patchValue({
+      id:'',
+      country: '',
+      state: '',
+      street: '',
+      number: '',
+      city: '',
+      postalCode:  '',
+    });
+    this.isUpdate = true;
+    this.openModal();
+  }
   open(address: Address) {
     this.addressForm.patchValue({
       id:address.id,

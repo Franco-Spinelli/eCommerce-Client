@@ -60,7 +60,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   }
 
   openAddressModal() {
-    this.addressModal.openModal();
+    this.addressModal.openCreate();
   }
 
   getAddresses() {
