@@ -34,10 +34,10 @@ import { OrderComponent } from './order/order.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { MatCardModule } from '@angular/material/card';
 import { DealsComponent } from './deals/deals.component';
-import { OrdersDashboardComponent } from './orders-dashboard/orders-dashboard.component';
-import { ProductFormComponent } from './product-form/product-form.component';
-import { ProductManagementComponent } from './product-management/product-management.component';
+import { ProductManagementComponent } from './admin/product-management/product-management.component';
 import { FooterComponent } from './footer/footer.component';
+import { OrdersDashboardComponent } from './admin/orders-dashboard/orders-dashboard.component';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
 @NgModule({
   declarations: [
     AppComponent,

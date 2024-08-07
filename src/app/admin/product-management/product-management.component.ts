@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Category, Product } from '../models';
-import { ProductService } from '../services/product/product.service';
-import { CartService } from '../services/cart/cart.service';
+import { Category, Product } from '../../models';
+import { ProductService } from '../../services/product/product.service';
+import { CartService } from '../../services/cart/cart.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({

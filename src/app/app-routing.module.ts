@@ -10,16 +10,15 @@ import { AuthGuard } from '../auth.guard';
 import { OrderComponent } from './order/order.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { DealsComponent } from './deals/deals.component';
-import { OrdersDashboardComponent } from './orders-dashboard/orders-dashboard.component';
-import { ProductFormComponent } from './product-form/product-form.component';
-import { ProductManagementComponent } from './product-management/product-management.component';
+import { OrdersDashboardComponent } from './admin/orders-dashboard/orders-dashboard.component';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { ProductManagementComponent } from './admin/product-management/product-management.component';
 
 
 const routes: Routes = [
   {path:'register', component: RegisterComponent},
   {path:'login', component: LoginComponent},
   {path:'', component: LandingPageComponent},
-  {path:'user-dashboard', component: UserDashboardComponent, canActivate: [AuthGuard]},
   {path:'products', component: ProductListComponent},
   {path:'order', component: OrderComponent, canActivate: [AuthGuard]},
   {path:'my-orders', component: MyOrdersComponent, canActivate: [AuthGuard]},
