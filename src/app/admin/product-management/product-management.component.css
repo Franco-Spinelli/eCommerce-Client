@@ -394,7 +394,12 @@ button.mat-button-base.mat-primary:hover {
   font-weight: bold;
 }
 
-/* Media Queries for Responsiveness */
+.error {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
 @media (max-width: 768px) {
   .modal-content {
     width: 90%;

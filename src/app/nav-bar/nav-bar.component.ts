@@ -117,8 +117,6 @@ export class NavBarComponent implements OnInit, OnDestroy {
     if(this.isAdminlogin()){
       this.orderService.getAllOrders().subscribe((data)=>{
         this.ordersCountAdmin = data.length;
-        console.log(data);
-        
       })
     }
   }
@@ -146,8 +144,6 @@ export class NavBarComponent implements OnInit, OnDestroy {
   
   deleteAddress(address: Address) {
     this.userService.deleteAddress(address).subscribe((data)=>{
-      console.log(data);
-      
     })
     }
 }

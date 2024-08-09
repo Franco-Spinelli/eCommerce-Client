@@ -29,7 +29,7 @@
             {{ getOrderStatusText(order.status) }}
         </div>
         <div class="order-col order-col-header-total">
-            ${{ order.totalPrice}}
+            {{ order.totalPrice | currency }}
         </div>
         <div class="order-col order-col-header-actions">
             <button class="detail-button" (click)="openModal(order)">View details</button>

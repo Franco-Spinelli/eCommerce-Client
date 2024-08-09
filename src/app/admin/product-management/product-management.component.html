@@ -111,7 +111,6 @@
                       ></textarea>
                     </div>
                     <div class="form-row">
-                 
                       <div class="form-group">
                         <label for="price">Price</label>
                         <input
@@ -120,6 +119,27 @@
                           type="number"
                           formControlName="price"
                         />
+                      </div>
+                      <div class="form-group">
+                        <label for="discount">Discount</label>
+                        <input
+                          id="discount"
+                          placeholder="Enter discount"
+                          type="number"
+                          formControlName="discount"
+                          (input)="calculateDiscountPriceInput()"
+                        />
+                      </div>
+                      <div *ngIf="productForm.get('discount')?.hasError('invalidDiscount')" class="error">
+                        Discount must be between 5% and 100%
+                      </div>
+                      <div class="form-group">
+                        <label>Price without Discount:</label>
+                        <p>{{ productForm.get('price')?.value | currency }}</p>
+                      </div>
+                      <div class="form-group" *ngIf="!productForm.get('discount')?.hasError('invalidDiscount')">
+                        <label>Price with Discount:</label>
+                        <p>{{ discountPrice | currency }}</p>
                       </div>
                       <div class="form-group">
                           <label for="stock">Stock</label>

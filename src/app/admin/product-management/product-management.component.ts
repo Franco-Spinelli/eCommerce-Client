@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Category, Product } from '../../models';
 import { ProductService } from '../../services/product/product.service';
 import { CartService } from '../../services/cart/cart.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-management',
@@ -27,6 +27,8 @@ export class ProductManagementComponent implements OnInit{
    currentPage = 1;
    productsPerPage = 12;
 
+   discountPrice: number = 0;
+
    categoryForm: FormGroup;
    productForm: FormGroup;
    ngOnInit(): void {
@@ -36,6 +38,7 @@ export class ProductManagementComponent implements OnInit{
     this.productForm =  this.formBuilder.group({
       id:'',
       title: ['',[Validators.required]],
+      discount: ['',[Validators.required,, this.discountValidator]],
       price:  ['',[Validators.required]],
       description:  ['',[Validators.required]],
       image:  ['',[Validators.required]],
@@ -112,16 +115,19 @@ export class ProductManagementComponent implements OnInit{
   }
   openModal(product: any) {
     this.selectedProduct = product;
-
+    console.log(product.discount);
+    
     this.productForm.patchValue({
       id:this.selectedProduct.id,
       title: this.selectedProduct.title,
+      discount: this.selectedProduct.discount,
       price: this.selectedProduct.price,
       description: this.selectedProduct.description,
       image: this.selectedProduct.image,
       category: this.selectedProduct.category,
       stock:  this.selectedProduct.stock,
     });
+    this.calculateDiscountPrice();
   }
 
   closeModal() {
@@ -136,20 +142,45 @@ export class ProductManagementComponent implements OnInit{
   }
 
   update(){
-    if (this.productForm.get('category')?.value === 'newCategory' && this.categoryForm.get('newCategoryValue')?.value) {
+    if(this.productForm.valid){
+      if (this.productForm.get('category')?.value === 'newCategory' && this.categoryForm.get('newCategoryValue')?.value) {
       
-      this.productForm.get('category')?.setValue(this.categoryForm.get('newCategoryValue')?.value);
+        this.productForm.get('category')?.setValue(this.categoryForm.get('newCategoryValue')?.value);
+      }
+      
+      this.productService.updateProduct(this.productForm.value).subscribe((data)=>{
+        console.log(data);
+        
+      })
     }
-    
-    this.productService.updateProduct(this.productForm.value).subscribe((data)=>{
-      console.log(data);
-      
-    })
   }
   deleteProduct(product: Product) {
     this.productService.deleteProduct(product.id).subscribe((data)=>{
       console.log(data);
       
     })
+    }
+
+    calculateDiscountPriceInput(): void {
+      this.calculateDiscountPrice();
+
+    }
+    calculateDiscountPrice(): void {
+      const price = this.productForm.get('price')?.value || 0;
+      const discount = this.productForm.get('discount')?.value || 0;
+  
+      this.discountPrice = price - (price * (discount / 100));
+      this.discountPrice = Math.round(this.discountPrice * 100) / 100;
+
+    }
+    discountValidator(control: AbstractControl): { [key: string]: boolean } | null {
+      const discount = control.value;
+      if (discount < 5 || discount > 100) {
+        return { invalidDiscount: true };
+      }
+      if(discount==0){
+        return null;
+      }
+      return null;
     }
 }
