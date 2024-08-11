@@ -1,77 +1,91 @@
-<div *ngIf="cart" class="cart-container">
-  <div class="grid-container">
-    <div>
-      <h2 class="section-title">Cart Items</h2>
-      <div class="cart-item-list">
-        <div *ngFor="let item of cart.cartItems" class="cart-item">
-          <button class="remove-item" (click)="removeItem(item)" matTooltip="Remove this item from the cart">
-            <mat-icon>close</mat-icon>
-          </button>
-          <img [src]="item.img" alt="{{ item.title }}" class="cart-item-image">
-          <div class="cart-item-details">
-            <h3>{{ item.title }}</h3>
-            <p class="cart-item-description">({{ item.quantity }}) - {{ item.totalPriceItem | currency }}</p>
+<div class="container">
+  <div *ngIf="cart" class="cart-container">
+    <div class="grid-container">
+      <div>
+        <h2 class="section-title">Cart Items</h2>
+        <div class="cart-item-list">
+          <div *ngFor="let item of cart.cartItems" class="cart-item">
+            <button class="remove-item" (click)="removeItem(item)" matTooltip="Remove this item from the cart">
+              <mat-icon>close</mat-icon>
+            </button>
+            <img [src]="item.img" alt="{{ item.title }}" class="cart-item-image">
+            <div class="cart-item-details">
+              <h3>{{ item.title }}</h3>
+              <p class="cart-item-description">({{ item.quantity }}) - {{ item.totalPriceItem | currency }}</p>
+            </div>
           </div>
         </div>
       </div>
+
+      <div *ngIf="allAddress.length > 0 || selectedAddress!=null ; else noShipping">
+        <h2 class="section-title">Shipping</h2>
+        <div class="shipping-options">
+          <form [formGroup]="orderForm">
+            <div class="shipping-option">
+              <label>
+                <input type="checkbox" formControlName="hasDelivery" class="checkbox">
+                <span class="checkbox-label">Add shipping</span>
+              </label>
+            </div>
+            <div *ngIf="orderForm.get('hasDelivery')?.value && (allAddress.length > 0 || selectedAddress!=null)"
+              class="shipping-address">
+              <label>Select an address:</label>
+              <select formControlName="selectedAddress" class="custom-select">
+                <option [value]="selectedAddress">
+                  {{ selectedAddress.street }} {{ selectedAddress.number }}
+                </option>
+                <option *ngFor="let address of allAddress" [ngValue]="address">
+                  {{ address.street }} {{ address.number }}
+                </option>
+              </select>
+            </div>
+            <div *ngIf="orderForm.get('hasDelivery')?.value && allAddress.length === 0 && selectedAddress === null"
+              class="shipping-address">
+              <p>No addresses available. Please add an address.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+      <ng-template #noShipping>
+        <div class="no-address">
+          No address found. Please add a address.
+        </div>
+      </ng-template>
     </div>
-   
-    <div *ngIf="allAddress.length > 0 || selectedAddress!=null ; else noShipping">
-      <h2 class="section-title">Shipping</h2>
-      <div class="shipping-options">
-        <form [formGroup]="orderForm">
-        <div class="shipping-option">
-          <label>
-            <input type="checkbox" formControlName="hasDelivery" class="checkbox">
-            <span class="checkbox-label">Add shipping</span>
-          </label>
+    <div class="order-summary">
+      <h2 class="section-title">Order Summary</h2>
+      <div class="summary-details">
+        <div class="summary-item">
+          <span>Subtotal</span>
+          <span>{{ cart.totalPrice | currency }}</span>
         </div>
-        <div *ngIf="orderForm.get('hasDelivery')?.value && (allAddress.length > 0 || selectedAddress!=null)" class="shipping-address">
-          <label>Select an address:</label>
-            <select formControlName="selectedAddress" class="custom-select">
-              <option [value]="selectedAddress">
-                {{ selectedAddress.street }} {{ selectedAddress.number }}
-              </option>
-              <option *ngFor="let address of allAddress" [ngValue]="address" >
-                {{ address.street }} {{ address.number }}
-              </option>
-            </select>
+        <div class="summary-item" *ngIf="orderForm.get('hasDelivery')?.value">
+          <span>Shipping</span>
+          <span>${{shippingCost}}</span>
         </div>
-        <div *ngIf="orderForm.get('hasDelivery')?.value && allAddress.length === 0 && selectedAddress === null" class="shipping-address">
-          <p>No addresses available. Please add an address.</p>
+        <div class="separator"></div>
+        <div class="summary-item total" *ngIf="!orderForm.get('hasDelivery')?.value">
+          <span>Total</span>
+          <span>{{ cart.totalPrice | currency }}</span>
         </div>
-      </form>
+        <div class="summary-item total" *ngIf="orderForm.get('hasDelivery')?.value">
+          <span>Total</span>
+          <span>{{ cart.totalPrice + shippingCost | currency }}</span>
+        </div>
+      </div>
+      <div class="submit-button">
+        <button mat-button class="create-order-btn" (click)="onSubmit()">Create Order</button>
       </div>
     </div>
-    <ng-template #noShipping>
-      <div class="no-address">
-        No address found. Please add a address.
-      </div>
-    </ng-template>
   </div>
-  <div class="order-summary">
-    <h2 class="section-title">Order Summary</h2>
-    <div class="summary-details">
-      <div class="summary-item">
-        <span>Subtotal</span>
-        <span>{{ cart.totalPrice | currency }}</span>
+  <div class="modal"  *ngIf="orderSuccess">
+    <div class="modal-status">
+      <div class="modal-body">
+        <img src="assets/img/accept.png" alt="Order Success" class="modal-image">
+        <p class="modal-text">Your order has been placed successfully! You can track your order status in your
+          dashboard.</p>
+        <button type="submit" class="btn-status btn-primary" routerLink="/my-orders">Go to Dashboard</button>
       </div>
-      <div class="summary-item" *ngIf="orderForm.get('hasDelivery')?.value">
-        <span>Shipping</span>
-        <span>${{shippingCost}}</span>
-      </div>
-      <div class="separator"></div>
-      <div class="summary-item total" *ngIf="!orderForm.get('hasDelivery')?.value">
-        <span>Total</span>
-        <span>{{ cart.totalPrice  | currency }}</span>
-      </div>
-      <div class="summary-item total" *ngIf="orderForm.get('hasDelivery')?.value">
-        <span>Total</span>
-        <span>{{ cart.totalPrice + shippingCost | currency }}</span>
-      </div>
-    </div>
-    <div class="submit-button">
-      <button mat-button class="create-order-btn" (click)="onSubmit()">Create Order</button>
     </div>
   </div>
 </div>

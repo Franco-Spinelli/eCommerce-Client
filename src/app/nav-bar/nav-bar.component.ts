@@ -51,6 +51,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   logout() {
     this.authService.logOut();
+    localStorage.removeItem('selectedAddress');
     alert('Logout success');
     this.router.navigateByUrl('/login');
   }

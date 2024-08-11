@@ -19,6 +19,7 @@ export class OrderComponent  implements OnInit {
   selectedAddress: Address;
   cart: Cart;
   hasDelivery: boolean;
+  orderSuccess: boolean;
   subscription: Subscription;
   constructor(private orderService: OrderService, private cartService:CartService, private userService: UserService, private formBuilder: FormBuilder, private router: Router) { }
   ngOnInit(): void {
@@ -30,13 +31,9 @@ export class OrderComponent  implements OnInit {
     const formData = this.orderForm.value;
     this.orderService.createOrder(formData.hasDelivery, formData.selectedAddress).subscribe(
       (response: string) => {
-        console.log('Order creation successful:', response);
-        alert('Order created successfully!');
         localStorage.setItem('selectedAddress', JSON.stringify(formData.selectedAddress));
         this.orderService.setSelectedAddress(formData.selectedAddress)
-        console.log(this.orderService.getSelectedAddress());
-        
-        this.router.navigateByUrl('/products');
+        this.orderSuccess=true;
       },
       (error: any) => {
         console.error('Error creating order:', error);

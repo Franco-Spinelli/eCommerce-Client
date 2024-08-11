@@ -60,7 +60,10 @@
                   <div class="order-item-info">
                       <h3 class="order-item-name">{{ item.product.title }}</h3>
                       <p class="order-item-quantity">Quantity: {{ item.quantity }}</p>
-                      <p class="order-item-price">Unit Price: {{ item.product.price | currency }}</p>
+                      <p class="order-item-price">
+                        Unit Price: {{ item.product.price | currency }}
+                        <span *ngIf="item.product.discount > 0"> - {{ item.product.discount }}%</span>
+                      </p>
                       <p class="order-item-total">Subtotal: {{ item.totalPrice | currency }}</p>
                   </div>
               </li>

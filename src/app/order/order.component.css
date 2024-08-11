@@ -172,3 +172,53 @@
     color: #868686; 
     font-weight: bold;
   }
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+  }
+  
+  .modal-status {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 500px;
+    width: 90%;
+    animation: fadeIn 0.3s ease;
+  }
+  .btn-status {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4567b7; 
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  .btn-status:hover {
+    background-color: #337ab7;
+  }
+  .modal-image {
+    display: block;
+    margin: 0 auto;
+    max-width: 15%;
+    height: auto;
+  }
+  
+  .modal-text {
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 15px;
+  }
