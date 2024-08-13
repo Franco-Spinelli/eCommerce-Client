@@ -172,7 +172,6 @@ export class ProductListComponent implements OnInit {
     if (this.authService.isUserLoggedIn()) {
       this.cartService.addProductToCart(product.id, quantity).subscribe(
         (cart: Cart) => {
-          console.log('Product added to cart');
           this.quantity = 1;
         },
         (error) => {

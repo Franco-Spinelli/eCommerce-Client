@@ -39,6 +39,9 @@ export class NavBarComponent implements OnInit, OnDestroy {
       if (loggedIn) {
         this.getAddresses();
         this.getItemCount();
+        this.orderService.orderCreated$.subscribe(() => {
+          this.getItemCount();
+        });
       }
     });
   }
@@ -68,7 +71,6 @@ export class NavBarComponent implements OnInit, OnDestroy {
     if(this.isCustomerlogin()){    
       this.userService.getAllAddresses().subscribe((data) => {
       this.addresses = data;
-      console.log(data);
       this.restoreSelectedAddress();
     });
   }
@@ -103,7 +105,6 @@ export class NavBarComponent implements OnInit, OnDestroy {
     if(this.isCustomerlogin()){
       this.subscription = this.cartService.getCartUpdateObservable().subscribe(
         () => {
-          console.log('Cart update triggered');
           this.updateCart();
         },
         (error) => {

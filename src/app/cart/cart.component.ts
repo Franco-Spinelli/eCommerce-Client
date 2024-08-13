@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CartService } from '../services/cart/cart.service';
 import { Cart } from '../models';
 import { Subject, Subscription, switchMap } from 'rxjs';
+import { OrderService } from '../services/order/order.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,20 +14,22 @@ export class CartComponent implements OnInit, OnDestroy{
   isOpen = false;
   subscription: Subscription;
   
-   constructor(private cartService: CartService){
+   constructor(private cartService: CartService, private orderService: OrderService){
    }
 
    ngOnInit(): void {
+    this.updateCart();
     this.subscription = this.cartService.getCartUpdateObservable().subscribe(
       () => {
-        console.log('Cart update triggered');
         this.updateCart(); 
       },
       (error) => {
         console.error('Error in cart update observable:', error);
       }
     );
-    this.updateCart();
+    this.orderService.orderCreated$.subscribe(() => {
+      this.updateCart();
+    });
   }
   private updateCart(): void {
     this.cartService.getCart().subscribe(

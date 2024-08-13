@@ -33,11 +33,11 @@
             <div class="product-col product-col-header">ID</div>
             <div class="product-col product-col-header">TITLE</div>
             <div class="product-col product-col-header">PRICE</div>
-            <div class="product-col product-col-header">CATEGORY</div>
-            <div class="product-col product-col-header">STOCK</div>
+            <div class="product-col product-col-header product-col-header-category">CATEGORY</div>
+            <div class="product-col product-col-header product-col-header-stock">STOCK</div>
             <div class="product-col product-col-header  product-col-header-actions">ACTIONS</div>
         </div>
-        <div *ngFor="let product of paginatedProducts" class="product-row">
+        <div *ngFor="let product of paginatedProducts" class="product-row" (click)="openModal(product)">
         <div class="product-col">
             {{ product.id }}
         </div>
@@ -47,10 +47,10 @@
         <div class="product-col">
             {{ product.price }}
         </div>
-        <div class="product-col">
+        <div class="product-col product-col-header-category">
             {{ product.category }}
         </div>
-        <div class="product-col">
+        <div class="product-col product-col-header-stock">
             {{ product.stock}}
         </div>
         <div class="product-col product-col-header-actions">
