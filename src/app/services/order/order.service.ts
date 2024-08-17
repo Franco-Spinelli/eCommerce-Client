@@ -29,7 +29,7 @@ export class OrderService {
     this.selectedAddress = address;
   }
   changeOrderStatus(orderId: number, newStatus: OrderStatus): Observable<Order> {
-    const url = `${environment.urlAdmin}/${orderId}/change-status`;
+    const url = `${environment.urlAdmin}/orders/${orderId}/change-status`;
     return this.http.put<Order>(url, { status: newStatus });
   }
   getSelectedAddress() {

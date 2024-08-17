@@ -399,7 +399,9 @@ button.mat-button-base.mat-primary:hover {
   font-size: 14px;
   margin-bottom: 10px;
 }
-
+.discount-input{
+  margin-bottom: 1rem;
+}
 @media (max-width: 768px) {
   .modal-content {
     width: 90%;

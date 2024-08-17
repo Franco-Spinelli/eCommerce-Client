@@ -8,7 +8,7 @@ export interface Rating {
     title: string;
     price: number;
     discount:number;
-    discountPrice:number;
+    discountPrice:any;
     description: string;
     rating: Rating;
     image: string;

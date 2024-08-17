@@ -38,6 +38,7 @@ import { ProductManagementComponent } from './admin/product-management/product-m
 import { FooterComponent } from './footer/footer.component';
 import { OrdersDashboardComponent } from './admin/orders-dashboard/orders-dashboard.component';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,6 +80,7 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
     MatSnackBarModule,
     MatCardModule,
     MatListModule, 
+    MatCheckboxModule
   ],
   exports: [ MatTooltipModule,
     MatSnackBarModule],

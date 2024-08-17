@@ -9,46 +9,47 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
   templateUrl: './product-management.component.html',
   styleUrl: './product-management.component.css'
 })
-export class ProductManagementComponent implements OnInit{
+export class ProductManagementComponent implements OnInit {
 
-   //productList
-   products: Product[];
-   //filters
-   selectedProduct: any;
-   selectedRating: number = 0;
-   selectedCategory: string;
-   minPrice: any;
-   maxPrice: any;
-   categories: Category[];
-   filteredProducts: Product[] = [];
-   searchTerm: string = '';
-   sortOrder: string; 
-   //page
-   currentPage = 1;
-   productsPerPage = 12;
+  //productList
+  products: Product[];
+  //filters
+  selectedProduct: any;
+  selectedRating: number = 0;
+  selectedCategory: string;
+  minPrice: any;
+  maxPrice: any;
+  categories: Category[];
+  filteredProducts: Product[] = [];
+  searchTerm: string = '';
+  sortOrder: string;
+  //page
+  currentPage = 1;
+  productsPerPage = 12;
 
-   discountPrice: number = 0;
+  discountPrice: number = 0;
 
-   categoryForm: FormGroup;
-   productForm: FormGroup;
-   ngOnInit(): void {
+  categoryForm: FormGroup;
+  productForm: FormGroup;
+  ngOnInit(): void {
     this.loadProducts();
   }
-  constructor(private productService: ProductService, private cartService:CartService,private formBuilder: FormBuilder) {
-    this.productForm =  this.formBuilder.group({
-      id:'',
-      title: ['',[Validators.required]],
-      discount: ['',[Validators.required,, this.discountValidator]],
-      price:  ['',[Validators.required]],
-      description:  ['',[Validators.required]],
-      image:  ['',[Validators.required]],
-      category:  ['',[Validators.required]],
-      stock: ['',[Validators.required]],
+  constructor(private productService: ProductService, private cartService: CartService, private formBuilder: FormBuilder) {
+    this.productForm = this.formBuilder.group({
+      id: '',
+      title: ['', [Validators.required]],
+      hasDiscount: [false],
+      discount: ['', [Validators.required, , this.discountValidator]],
+      price: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      image: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+      stock: ['', [Validators.required]],
     });
-    this.categoryForm =  this.formBuilder.group({
-      newCategoryValue: ['',[Validators.required]]
+    this.categoryForm = this.formBuilder.group({
+      newCategoryValue: ['', [Validators.required]]
     });
-   }
+  }
   loadProducts(): void {
     this.productService.getAllProducts().subscribe((data) => {
       this.products = data;
@@ -84,7 +85,7 @@ export class ProductManagementComponent implements OnInit{
     return Math.ceil(this.filteredProducts.length / this.productsPerPage);
   }
   advancedSearch(): void {
-    
+
     const searchTerm = this.searchTerm.toLowerCase();
     const selectedRating = this.selectedRating ? this.selectedRating : null;
     const selectedCategory = this.selectedCategory;
@@ -103,7 +104,7 @@ export class ProductManagementComponent implements OnInit{
       this.filteredProducts = this.filteredProducts.sort((a, b) => {
         const finalPriceA = a.price - (a.price * (a.discount / 100));
         const finalPriceB = b.price - (b.price * (b.discount / 100));
-      
+
         if (this.sortOrder === 'asc') {
           return finalPriceA - finalPriceB;
         } else {
@@ -116,16 +117,17 @@ export class ProductManagementComponent implements OnInit{
   openModal(product: any) {
     this.selectedProduct = product;
     console.log(product.discount);
-    
+    const hasDiscount = product.discount > 0;
     this.productForm.patchValue({
-      id:this.selectedProduct.id,
+      id: this.selectedProduct.id,
       title: this.selectedProduct.title,
+      hasDiscount: hasDiscount,
       discount: this.selectedProduct.discount,
       price: this.selectedProduct.price,
       description: this.selectedProduct.description,
       image: this.selectedProduct.image,
       category: this.selectedProduct.category,
-      stock:  this.selectedProduct.stock,
+      stock: this.selectedProduct.stock,
     });
     this.calculateDiscountPrice();
   }
@@ -141,46 +143,57 @@ export class ProductManagementComponent implements OnInit{
     return `${value}`;
   }
 
-  update(){
-    if(this.productForm.valid){
+  update() {
+    if (this.productForm.valid) {
       if (this.productForm.get('category')?.value === 'newCategory' && this.categoryForm.get('newCategoryValue')?.value) {
-      
+
         this.productForm.get('category')?.setValue(this.categoryForm.get('newCategoryValue')?.value);
       }
-      
-      this.productService.updateProduct(this.productForm.value).subscribe((data)=>{
+      const formValues = this.productForm.value;
+      const product: Product = {
+        id: this.selectedProduct?.id ?? 0,
+        title: formValues.title,
+        price: formValues.price,
+        discount: formValues.hasDiscount ? formValues.discount : 0,
+        discountPrice: null,
+        description: formValues.description,
+        rating: this.selectedProduct?.rating,
+        image: formValues.image,
+        category: formValues.category === 'newCategory' ? formValues.newCategoryValue : formValues.category,
+        stock: formValues.stock
+      };
+      this.productService.updateProduct(product).subscribe((data) => {
         console.log(data);
-        
+
       })
     }
   }
   deleteProduct(product: Product) {
-    this.productService.deleteProduct(product.id).subscribe((data)=>{
-      console.log(data);
-      
+    this.productService.deleteProduct(product.id).subscribe((data) => {
+
     })
-    }
+  }
 
-    calculateDiscountPriceInput(): void {
-      this.calculateDiscountPrice();
+  calculateDiscountPriceInput(): void {
+    this.calculateDiscountPrice();
 
-    }
-    calculateDiscountPrice(): void {
-      const price = this.productForm.get('price')?.value || 0;
-      const discount = this.productForm.get('discount')?.value || 0;
-  
-      this.discountPrice = price - (price * (discount / 100));
-      this.discountPrice = Math.round(this.discountPrice * 100) / 100;
+  }
+  calculateDiscountPrice(): void {
+    const price = this.productForm.get('price')?.value || 0;
+    const discount = this.productForm.get('discount')?.value || 0;
 
+    this.discountPrice = price - (price * (discount / 100));
+    this.discountPrice = Math.round(this.discountPrice * 100) / 100;
+
+  }
+  discountValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const discount = control.value;
+    if (discount < 5 || discount > 100) {
+      return { invalidDiscount: true };
     }
-    discountValidator(control: AbstractControl): { [key: string]: boolean } | null {
-      const discount = control.value;
-      if (discount < 5 || discount > 100) {
-        return { invalidDiscount: true };
-      }
-      if(discount==0){
-        return null;
-      }
+    if (discount == 0) {
       return null;
     }
+    return null;
+  }
 }
